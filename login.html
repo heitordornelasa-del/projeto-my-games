@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <header class="cabecalho">
+    <header class="cabecalho" id="cabecalho">
         <h1>Faça o seu login no MyGames!</h1>
         <h2>Página de Login</h2>
         <p>Uma plataforma que conecta jogadores de maneira simples e ágil.</p>
@@ -16,25 +16,31 @@
             <a href="index.html">Página inicial</a>
             <a href="cadastro.html">Página de Cadastro</a>
             <a href="#cabecalho">Página de Login</a>
+            <a href="perfil.html">Meu Perfil</a>
         </nav>
     </header>
     <main>
-
         <form id="login">
 
-            <p>
-                <label for="email">Digite seu email:</label>
-                <input type="email" id="email" name="email" required>
-            </p>
+            <fieldset>
 
-            <p>
-                <label for="senha">Digite sua senha:</label>
-                <input type="password" id="senha" name="senha" required>
-            </p>
+                <legend>Informações para login</legend>
 
-            <p>
-                <button type="submit">Fazer login</button>
-            </p>
+                <p>
+                    <label for="email">Digite seu email:</label>
+                    <input type="email" id="email" name="email" required>
+                </p>
+
+                <p>
+                    <label for="senha">Digite sua senha:</label>
+                    <input type="password" id="senha" name="senha" required>
+                </p>
+
+                <p>
+                    <button type="submit">Fazer login</button>
+                </p>
+
+            </fieldset>
 
         </form>
 
