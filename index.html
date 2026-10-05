@@ -8,10 +8,12 @@
 </head>
 
 <body>
+
     <header class="cabecalho" id="cabecalho">
         <h1>Bem vindo ao MyGames!</h1>
         <h2>Página inicial</h2>
         <p>Uma plataforma que conecta jogadores de maneira simples e ágil.</p>
+
         <nav>
             <a href="#cabecalho">Página inicial</a>
             <a href="cadastro.html">Página de Cadastro</a>
@@ -19,16 +21,126 @@
             <a href="perfil.html">Meu Perfil</a>
         </nav>
     </header>
+
     <main>
 
+        <section>
 
+            <form>
+
+                <fieldset>
+
+                    <legend>Pesquisar jogadores</legend>
+
+                    <p>
+                        <label for="pesquisa">Digite o nome do jogador:</label>
+                        <input id="pesquisa" type="search">
+                    </p>
+
+                    <p>
+                        <button type="submit">Pesquisar</button>
+                    </p>
+
+                </fieldset>
+
+                <fieldset>
+
+                    <legend>Filtrar jogadores</legend>
+
+                    <p>
+                        <label for="plataforma">Plataforma:</label>
+
+                        <select id="plataforma">
+                            <option>Todos</option>
+                            <option>PC</option>
+                            <option>PlayStation</option>
+                            <option>Xbox</option>
+                            <option>Nintendo Switch</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label for="jogo">Jogo:</label>
+
+                        <select id="jogo">
+                            <option>Todos</option>
+                            <option>Counter-Strike 2</option>
+                            <option>Minecraft</option>
+                            <option>Rocket League</option>
+                            <option>Valorant</option>
+                        </select>
+                    </p>
+
+                    <button type="button">Filtrar</button>
+
+                </fieldset>
+
+                <fieldset>
+
+                    <legend>Ordenar jogadores</legend>
+
+                    <p>
+                        <label for="ordenacao">Ordenar por:</label>
+
+                        <select id="ordenacao">
+                            <option>Nome</option>
+                            <option>Jogo</option>
+                            <option>Plataforma</option>
+                        </select>
+                    </p>
+
+                    <button type="button">Ordenar</button>
+
+                </fieldset>
+
+            </form>
+
+        </section>
+
+        <section>
+
+            <h3>Jogadores cadastrados</h3>
+
+            <article>
+
+                <p>João</p>
+
+                <p>Jogos: Valorant, Minecraft</p>
+
+                <p>Plataforma: PC</p>
+
+                <p>Horários disponíveis: Terça, quinta e sábado</p>
+
+                <p>Discord: joao123 </p>
+
+                <button type="button">Chamar no Discord</button>
+
+            </article>
+
+            <article>
+
+                <p>Lucas</p>
+
+                <p>Jogos: Rocket League, Terraria</p>
+
+                <p>Plataforma: PlayStation</p>
+
+                <p>Horários disponíveis: Sexta, sábado e domingo</p>
+
+                <p>Discord: lucas123 </p>
+
+                <button type="button">Chamar no Discord</button>
+
+            </article>
+
+        </section>
 
     </main>
 
     <footer>
 
-
     </footer>
+
 </body>
 
 </html>
