@@ -111,3 +111,115 @@ footer {
 footer nav a {
     color: var(--texto-secundario);
 }
+
+form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 18px;
+    align-items: start;
+}
+
+fieldset {
+    min-width: 0;
+    margin: 0 0 20px;
+    padding: 22px;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    background: var(--superficie);
+}
+
+form fieldset {
+    margin: 0;
+}
+
+legend {
+    padding: 0 9px;
+    color: var(--verde);
+    font-weight: 700;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: var(--texto-secundario);
+    font-size: 0.94rem;
+    font-weight: 500;
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid #3b5147;
+    border-radius: 8px;
+    background: #0c1511;
+    color: var(--texto);
+    font: inherit;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--verde);
+    vertical-align: middle;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #81958a;
+}
+
+button {
+    display: inline-block;
+    max-width: 100%;
+    padding: 10px 16px;
+    border: 1px solid var(--verde);
+    border-radius: 8px;
+    background: var(--verde);
+    color: #07130d;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+button + button {
+    margin-left: 7px;
+}
+
+button[type="button"] {
+    background: var(--superficie-clara);
+    color: var(--texto);
+    border-color: var(--borda);
+}
+
+#login {
+    display: block;
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+#login fieldset {
+    padding: 28px;
+}
+
+#login p:last-child {
+    margin-bottom: 0;
+}
+
+#login button,
+#login p:last-child button {
+    width: 100%;
+}
+
+main form {
+    grid-template-columns: 1fr 1.5fr 1fr;
+}
