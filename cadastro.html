@@ -28,17 +28,23 @@
 
                 <p>
                     <label for="nome">Digite seu nome:</label>
-                    <input id="nome" type="text" required>
+                    <input id="nome" name="nome" type="text" required>
                 </p>
 
                 <p>
                     <label for="email">Digite seu email:</label>
-                    <input id="email" type="email" required>
+                    <input id="email" name="email" type="email" required>
                 </p>
 
                 <p>
                     <label for="senha">Digite sua senha:</label>
-                    <input id="senha" type="password" required>
+                    <input id="senha" name="senha" type="password" required>
+                </p>
+
+                <!-- CORREÇÃO: campo de Discord adicionado, pois aparece na listagem e no perfil -->
+                <p>
+                    <label for="discord">Usuário do Discord:</label>
+                    <input id="discord" name="discord" type="text" placeholder="Ex: usuario#1234">
                 </p>
 
                 <p>
@@ -66,11 +72,13 @@
                         <tr>
                             <td>Segunda-feira</td>
                             <td>
-                                <input id="segunda" type="checkbox">
+                                <input id="segunda" name="segunda" type="checkbox">
                                 <label for="segunda">Sim</label>
                             </td>
                             <td>
-                                <select>
+                                <!-- CORREÇÃO: label e id únicos para cada select de início/fim -->
+                                <label for="segunda-inicio">Início:</label>
+                                <select id="segunda-inicio" name="segunda-inicio">
                                     <option>08:00</option>
                                     <option>10:00</option>
                                     <option>12:00</option>
@@ -82,7 +90,8 @@
                                 </select>
                             </td>
                             <td>
-                                <select>
+                                <label for="segunda-fim">Fim:</label>
+                                <select id="segunda-fim" name="segunda-fim">
                                     <option>10:00</option>
                                     <option>12:00</option>
                                     <option>14:00</option>
@@ -98,11 +107,12 @@
                         <tr>
                             <td>Terça-feira</td>
                             <td>
-                                <input id="terca" type="checkbox">
+                                <input id="terca" name="terca" type="checkbox">
                                 <label for="terca">Sim</label>
                             </td>
                             <td>
-                                <select>
+                                <label for="terca-inicio">Início:</label>
+                                <select id="terca-inicio" name="terca-inicio">
                                     <option>08:00</option>
                                     <option>10:00</option>
                                     <option>12:00</option>
@@ -114,7 +124,8 @@
                                 </select>
                             </td>
                             <td>
-                                <select>
+                                <label for="terca-fim">Fim:</label>
+                                <select id="terca-fim" name="terca-fim">
                                     <option>10:00</option>
                                     <option>12:00</option>
                                     <option>14:00</option>
@@ -130,11 +141,12 @@
                         <tr>
                             <td>Quarta-feira</td>
                             <td>
-                                <input id="quarta" type="checkbox">
+                                <input id="quarta" name="quarta" type="checkbox">
                                 <label for="quarta">Sim</label>
                             </td>
                             <td>
-                                <select>
+                                <label for="quarta-inicio">Início:</label>
+                                <select id="quarta-inicio" name="quarta-inicio">
                                     <option>08:00</option>
                                     <option>10:00</option>
                                     <option>12:00</option>
@@ -146,7 +158,8 @@
                                 </select>
                             </td>
                             <td>
-                                <select>
+                                <label for="quarta-fim">Fim:</label>
+                                <select id="quarta-fim" name="quarta-fim">
                                     <option>10:00</option>
                                     <option>12:00</option>
                                     <option>14:00</option>
@@ -162,11 +175,12 @@
                         <tr>
                             <td>Quinta-feira</td>
                             <td>
-                                <input id="quinta" type="checkbox">
+                                <input id="quinta" name="quinta" type="checkbox">
                                 <label for="quinta">Sim</label>
                             </td>
                             <td>
-                                <select>
+                                <label for="quinta-inicio">Início:</label>
+                                <select id="quinta-inicio" name="quinta-inicio">
                                     <option>08:00</option>
                                     <option>10:00</option>
                                     <option>12:00</option>
@@ -178,7 +192,8 @@
                                 </select>
                             </td>
                             <td>
-                                <select>
+                                <label for="quinta-fim">Fim:</label>
+                                <select id="quinta-fim" name="quinta-fim">
                                     <option>10:00</option>
                                     <option>12:00</option>
                                     <option>14:00</option>
@@ -194,11 +209,12 @@
                         <tr>
                             <td>Sexta-feira</td>
                             <td>
-                                <input id="sexta" type="checkbox">
+                                <input id="sexta" name="sexta" type="checkbox">
                                 <label for="sexta">Sim</label>
                             </td>
                             <td>
-                                <select>
+                                <label for="sexta-inicio">Início:</label>
+                                <select id="sexta-inicio" name="sexta-inicio">
                                     <option>08:00</option>
                                     <option>10:00</option>
                                     <option>12:00</option>
@@ -210,7 +226,8 @@
                                 </select>
                             </td>
                             <td>
-                                <select>
+                                <label for="sexta-fim">Fim:</label>
+                                <select id="sexta-fim" name="sexta-fim">
                                     <option>10:00</option>
                                     <option>12:00</option>
                                     <option>14:00</option>
@@ -226,11 +243,12 @@
                         <tr>
                             <td>Sábado</td>
                             <td>
-                                <input id="sabado" type="checkbox">
+                                <input id="sabado" name="sabado" type="checkbox">
                                 <label for="sabado">Sim</label>
                             </td>
                             <td>
-                                <select>
+                                <label for="sabado-inicio">Início:</label>
+                                <select id="sabado-inicio" name="sabado-inicio">
                                     <option>08:00</option>
                                     <option>10:00</option>
                                     <option>12:00</option>
@@ -242,7 +260,8 @@
                                 </select>
                             </td>
                             <td>
-                                <select>
+                                <label for="sabado-fim">Fim:</label>
+                                <select id="sabado-fim" name="sabado-fim">
                                     <option>10:00</option>
                                     <option>12:00</option>
                                     <option>14:00</option>
@@ -258,11 +277,12 @@
                         <tr>
                             <td>Domingo</td>
                             <td>
-                                <input id="domingo" type="checkbox">
+                                <input id="domingo" name="domingo" type="checkbox">
                                 <label for="domingo">Sim</label>
                             </td>
                             <td>
-                                <select>
+                                <label for="domingo-inicio">Início:</label>
+                                <select id="domingo-inicio" name="domingo-inicio">
                                     <option>08:00</option>
                                     <option>10:00</option>
                                     <option>12:00</option>
@@ -274,7 +294,8 @@
                                 </select>
                             </td>
                             <td>
-                                <select>
+                                <label for="domingo-fim">Fim:</label>
+                                <select id="domingo-fim" name="domingo-fim">
                                     <option>10:00</option>
                                     <option>12:00</option>
                                     <option>14:00</option>
@@ -291,14 +312,11 @@
 
                 </table>
 
-
                 <p>
                     <button type="button">Salvar dados</button>
                 </p>
 
             </fieldset>
-
-
 
             <fieldset>
 
@@ -308,7 +326,8 @@
                     <label for="jogos">Quais jogos você joga?</label>
                 </p>
 
-                <textarea id="jogos" rows="5" cols="40" placeholder="Ex: Valorant, Minecraft, Fortnite..."></textarea>
+                <!-- CORREÇÃO: atributo name adicionado ao textarea -->
+                <textarea id="jogos" name="jogos" rows="5" cols="40" placeholder="Ex: Valorant, Minecraft, Fortnite..."></textarea>
 
                 <p>Em quais plataformas você joga?</p>
 
@@ -328,9 +347,7 @@
                     <button type="button">Salvar dados</button>
                 </p>
 
-
             </fieldset>
-
 
         </form>
 
@@ -340,8 +357,6 @@
         <nav>
             <a href="#cabecalho">Voltar ao início</a>
         </nav>
-
-
     </footer>
 </body>
 
