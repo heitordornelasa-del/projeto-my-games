@@ -9,12 +9,10 @@
 </head>
 
 <body>
-
     <header class="cabecalho" id="cabecalho">
         <h1>Meu perfil no MyGames</h1>
         <h2>Página de Perfil</h2>
         <p>Veja e edite suas informações e encontre jogadores para jogar com você.</p>
-
         <nav>
             <a href="index.html">Página inicial</a>
             <a href="cadastro.html">Página de Cadastro</a>
@@ -22,132 +20,164 @@
             <a href="#cabecalho">Meu Perfil</a>
         </nav>
     </header>
-
-    <main>
-
+    <main class="pagina-perfil">
         <fieldset>
-
             <legend>Informações do perfil</legend>
-
-            <p>Nome: Heitor</p>
-
-            <p>Email: heitor@email.com</p>
-
-            <p>Senha: ****</p>
-
-            <p>Discord: -</p>
-
-            <button type="button">Editar perfil</button>
-            <button type="button">Salvar</button>
-
+            <div class="dados-perfil">
+                <p><strong>Nome:</strong> Heitor</p>
+                <p><strong>Email:</strong> heitor@email.com</p>
+                <p><strong>Senha:</strong> ****</p>
+                <p><strong>Discord:</strong> -</p>
+            </div>
+            <details class="area-edicao">
+                <summary class="botao-acao">Editar perfil</summary>
+                <form class="form-edicao">
+                    <p><label for="editar-nome">Nome:</label><input id="editar-nome" type="text" value="Heitor"></p>
+                    <p><label for="editar-email">Email:</label><input id="editar-email" type="email"
+                            value="heitor@email.com"></p>
+                    <p><label for="editar-senha">Nova senha:</label><input id="editar-senha" type="password"
+                            placeholder="Digite uma nova senha"></p>
+                    <p><label for="editar-discord">Discord:</label><input id="editar-discord" type="text"
+                            placeholder="Seu usuário no Discord"></p>
+                    <div class="acoes">
+                        <button type="submit" class="botao-salvar">Salvar alterações</button>
+                        <button type="reset" class="botao-cancelar">Cancelar</button>
+                    </div>
+                </form>
+            </details>
         </fieldset>
-
         <fieldset>
-
             <legend>Meus jogos</legend>
-
-            <article>
-
-                <p>Jogos: Counter-Strike 2, Minecraft, Rocket League</p>
-
-                <p>Plataforma: PC, PlayStation</p>
-
-            </article>
-
-            <button type="button">Editar jogos</button>
-            <button type="button">Salvar</button>
-
+            <div class="dados-perfil">
+                <p><strong>Jogos:</strong> Counter-Strike 2, Minecraft, Rocket League</p>
+                <p><strong>Plataforma:</strong> PC, PlayStation</p>
+            </div>
+            <details class="area-edicao">
+                <summary class="botao-acao">Editar jogos</summary>
+                <form class="form-edicao">
+                    <p><label for="editar-jogos">Jogos que você joga:</label><textarea id="editar-jogos"
+                            rows="4">Counter-Strike 2, Minecraft, Rocket League</textarea></p>
+                    <p>Plataformas:</p>
+                    <div class="opcoes-checkbox">
+                        <label><input type="checkbox" name="editar-plataforma" value="pc" checked> PC</label>
+                        <label><input type="checkbox" name="editar-plataforma" value="playstation" checked>
+                            PlayStation</label>
+                        <label><input type="checkbox" name="editar-plataforma" value="xbox"> Xbox</label>
+                        <label><input type="checkbox" name="editar-plataforma" value="switch"> Nintendo Switch</label>
+                    </div>
+                    <div class="acoes">
+                        <button type="submit" class="botao-salvar">Salvar alterações</button>
+                        <button type="reset" class="botao-cancelar">Cancelar</button>
+                    </div>
+                </form>
+            </details>
         </fieldset>
-
         <fieldset>
-
             <legend>Horários disponíveis para jogar</legend>
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th scope="col">Dia</th>
-                        <th scope="col">Horário</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>Segunda-feira</td>
-                        <td>18:00 - 20:00</td>
-                    </tr>
-
-                    <tr>
-                        <td>Terça-feira</td>
-                        <td>Não disponível</td>
-                    </tr>
-
-                    <tr>
-                        <td>Quarta-feira</td>
-                        <td>18:00 - 21:00</td>
-                    </tr>
-
-                    <tr>
-                        <td>Quinta-feira</td>
-                        <td>Não disponível</td>
-                    </tr>
-
-                    <tr>
-                        <td>Sexta-feira</td>
-                        <td>22:00 - 02:00</td>
-                    </tr>
-
-                    <tr>
-                        <td>Sábado</td>
-                        <td>14:00 - 18:00</td>
-                    </tr>
-
-                    <tr>
-                        <td>Domingo</td>
-                        <td>16:00 - 20:00</td>
-                    </tr>
-                </tbody>
-
-            </table>
-
-            <p>
-                <button type="button">Editar horários</button>
-                <button type="button">Salvar</button>
-            </p>
-
+            <div class="tabela-responsiva">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Dia</th>
+                            <th scope="col">Horário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Segunda-feira</td>
+                            <td>18:00 - 20:00</td>
+                        </tr>
+                        <tr>
+                            <td>Terça-feira</td>
+                            <td>Não disponível</td>
+                        </tr>
+                        <tr>
+                            <td>Quarta-feira</td>
+                            <td>18:00 - 21:00</td>
+                        </tr>
+                        <tr>
+                            <td>Quinta-feira</td>
+                            <td>Não disponível</td>
+                        </tr>
+                        <tr>
+                            <td>Sexta-feira</td>
+                            <td>22:00 - 02:00</td>
+                        </tr>
+                        <tr>
+                            <td>Sábado</td>
+                            <td>14:00 - 18:00</td>
+                        </tr>
+                        <tr>
+                            <td>Domingo</td>
+                            <td>16:00 - 20:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <details class="area-edicao">
+                <summary class="botao-acao">Editar horários</summary>
+                <form class="form-edicao">
+                    <div class="grade-horarios">
+                        <p><label for="horario-segunda">Segunda-feira:</label><select id="horario-segunda">
+                                <option>18:00 - 20:00</option>
+                                <option>Não disponível</option>
+                                <option>14:00 - 18:00</option>
+                            </select></p>
+                        <p><label for="horario-terca">Terça-feira:</label><select id="horario-terca">
+                                <option>Não disponível</option>
+                                <option>18:00 - 20:00</option>
+                                <option>14:00 - 18:00</option>
+                            </select></p>
+                        <p><label for="horario-quarta">Quarta-feira:</label><select id="horario-quarta">
+                                <option>18:00 - 21:00</option>
+                                <option>Não disponível</option>
+                                <option>14:00 - 18:00</option>
+                            </select></p>
+                        <p><label for="horario-quinta">Quinta-feira:</label><select id="horario-quinta">
+                                <option>Não disponível</option>
+                                <option>18:00 - 20:00</option>
+                                <option>14:00 - 18:00</option>
+                            </select></p>
+                        <p><label for="horario-sexta">Sexta-feira:</label><select id="horario-sexta">
+                                <option>22:00 - 02:00</option>
+                                <option>Não disponível</option>
+                                <option>18:00 - 22:00</option>
+                            </select></p>
+                        <p><label for="horario-sabado">Sábado:</label><select id="horario-sabado">
+                                <option>14:00 - 18:00</option>
+                                <option>Não disponível</option>
+                                <option>18:00 - 22:00</option>
+                            </select></p>
+                        <p><label for="horario-domingo">Domingo:</label><select id="horario-domingo">
+                                <option>16:00 - 20:00</option>
+                                <option>Não disponível</option>
+                                <option>18:00 - 22:00</option>
+                            </select></p>
+                    </div>
+                    <div class="acoes">
+                        <button type="submit" class="botao-salvar">Salvar alterações</button>
+                        <button type="reset" class="botao-cancelar">Cancelar</button>
+                    </div>
+                </form>
+            </details>
         </fieldset>
-
         <fieldset>
-
             <legend>Visibilidade do perfil</legend>
-
             <p>Seu perfil está atualmente público.</p>
-
-            <button type="button">Alterar privacidade</button>
-            <button type="button">Salvar</button>
-
+            <div class="acoes">
+                <button type="button" class="botao-editar">Alterar privacidade</button>
+                <button type="button" class="botao-salvar">Salvar</button>
+            </div>
         </fieldset>
-
-        <!-- CORREÇÃO: seção de exclusão de conta representada -->
-        <fieldset>
-
+        <fieldset class="zona-perigo">
             <legend>Excluir conta</legend>
-
             <p>Atenção: a exclusão da conta é permanente e não pode ser desfeita.</p>
-
-            <button type="button">Excluir minha conta</button>
-
+            <button type="button" class="botao-excluir">Excluir minha conta</button>
         </fieldset>
-
     </main>
-
     <footer>
-        <nav>
-            <a href="#cabecalho">Voltar ao início</a>
-        </nav>
+        <nav><a href="#cabecalho">Voltar ao início</a></nav>
     </footer>
-
 </body>
 
 </html>

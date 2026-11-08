@@ -9,12 +9,10 @@
 </head>
 
 <body>
-
     <header class="cabecalho" id="cabecalho">
         <h1>Bem vindo ao MyGames!</h1>
         <h2>Página inicial</h2>
         <p>Uma plataforma que conecta jogadores de maneira simples e ágil.</p>
-
         <nav>
             <a href="#cabecalho">Página inicial</a>
             <a href="cadastro.html">Página de Cadastro</a>
@@ -22,38 +20,22 @@
             <a href="perfil.html">Meu Perfil</a>
         </nav>
     </header>
-
     <main>
-
         <section>
-
-            <!-- CORREÇÃO: título adicionado à seção de pesquisa, filtros e ordenação -->
             <h2>Pesquisar, filtrar e ordenar jogadores</h2>
-
             <form>
-
                 <fieldset>
-
                     <legend>Pesquisar jogadores</legend>
-
                     <p>
                         <label for="pesquisa">Digite o nome do jogador:</label>
                         <input id="pesquisa" type="search">
                     </p>
-
-                    <p>
-                        <button type="submit">Pesquisar</button>
-                    </p>
-
+                    <p><button type="submit">Pesquisar</button></p>
                 </fieldset>
-
                 <fieldset>
-
                     <legend>Filtrar jogadores</legend>
-
                     <p>
                         <label for="plataforma">Plataforma:</label>
-
                         <select id="plataforma">
                             <option>Todos</option>
                             <option>PC</option>
@@ -62,10 +44,8 @@
                             <option>Nintendo Switch</option>
                         </select>
                     </p>
-
                     <p>
                         <label for="jogo">Jogo:</label>
-
                         <select id="jogo">
                             <option>Todos</option>
                             <option>Counter-Strike 2</option>
@@ -74,86 +54,78 @@
                             <option>Valorant</option>
                         </select>
                     </p>
-
                     <button type="button">Filtrar</button>
-
                 </fieldset>
-
                 <fieldset>
-
                     <legend>Ordenar jogadores</legend>
-
                     <p>
                         <label for="ordenacao">Ordenar por:</label>
-
                         <select id="ordenacao">
                             <option>Nome</option>
                             <option>Jogo</option>
                             <option>Plataforma</option>
                         </select>
                     </p>
-
                     <button type="button">Ordenar</button>
-
                 </fieldset>
-
             </form>
-
         </section>
-
         <section id="jogadores">
-
-            <!-- CORREÇÃO: h2 para "Jogadores cadastrados" (era h3) -->
             <h2>Jogadores cadastrados</h2>
-
-            <fieldset>
-
-                <!-- CORREÇÃO: h3 para o nome do jogador dentro do article -->
+            <article class="cartao-jogador">
                 <h3>João</h3>
-
                 <p>Jogos: Valorant, Minecraft</p>
-
                 <p>Plataforma: PC</p>
-
                 <p>Horários disponíveis: Terça, quinta e sábado</p>
-
                 <p>Discord: joao123</p>
-
-                <!-- CORREÇÃO: botão "Ver detalhes" para acessar o perfil do jogador -->
-                <button type="button">Ver detalhes</button>
-                <button type="button">Chamar no Discord</button>
-
-            </fieldset>
-
-            <fieldset>
-
-                <!-- CORREÇÃO: h3 para o nome do jogador dentro do article -->
+                <div class="acoes">
+                    <a class="botao" href="#detalhes-joao">Ver detalhes</a>
+                    <a class="botao botao-secundario" href="https://discord.com/" target="_blank"
+                        rel="noopener noreferrer">Chamar no Discord</a>
+                </div>
+            </article>
+            <article class="cartao-jogador">
                 <h3>Lucas</h3>
-
                 <p>Jogos: Rocket League, Terraria</p>
-
                 <p>Plataforma: PlayStation</p>
-
                 <p>Horários disponíveis: Sexta, sábado e domingo</p>
-
                 <p>Discord: lucas123</p>
-
-                <!-- CORREÇÃO: botão "Ver detalhes" para acessar o perfil do jogador -->
-                <button type="button">Ver detalhes</button>
-                <button type="button">Chamar no Discord</button>
-
-            </fieldset>
-
+                <div class="acoes">
+                    <a class="botao" href="#detalhes-lucas">Ver detalhes</a>
+                    <a class="botao botao-secundario" href="https://discord.com/" target="_blank"
+                        rel="noopener noreferrer">Chamar no Discord</a>
+                </div>
+            </article>
         </section>
-
+        <section class="detalhes-jogadores" aria-label="Detalhes dos jogadores">
+            <h2>Detalhes dos jogadores</h2>
+            <details id="detalhes-joao">
+                <summary>Perfil de João</summary>
+                <div class="conteudo-detalhes">
+                    <p><strong>Nome:</strong> João</p>
+                    <p><strong>Jogos:</strong> Valorant e Minecraft</p>
+                    <p><strong>Plataforma:</strong> PC</p>
+                    <p><strong>Disponibilidade:</strong> Terça, quinta e sábado</p>
+                    <p><strong>Discord:</strong> joao123</p>
+                    <p><strong>Sobre:</strong> Jogador disponível para partidas e novas amizades.</p>
+                </div>
+            </details>
+            <details id="detalhes-lucas">
+                <summary>Perfil de Lucas</summary>
+                <div class="conteudo-detalhes">
+                    <p><strong>Nome:</strong> Lucas</p>
+                    <p><strong>Jogos:</strong> Rocket League e Terraria</p>
+                    <p><strong>Plataforma:</strong> PlayStation</p>
+                    <p><strong>Disponibilidade:</strong> Sexta, sábado e domingo</p>
+                    <p><strong>Discord:</strong> lucas123</p>
+                    <p><strong>Sobre:</strong> Jogador disponível para partidas e novas amizades.</p>
+                </div>
+            </details>
+        </section>
     </main>
-
     <footer>
-        <nav>
-            <a href="#cabecalho">Voltar ao início</a>
-        </nav>
+        <nav><a href="#cabecalho">Voltar ao início</a></nav>
     </footer>
-
 </body>
 
 </html>

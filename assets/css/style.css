@@ -19,10 +19,14 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 20px;
 }
 
 body {
     margin: 0;
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
     background: var(--fundo);
     color: var(--texto);
     font-family: "Inter", Arial, sans-serif;
@@ -40,8 +44,9 @@ header.cabecalho {
 header h1 {
     margin: 0 0 8px;
     color: var(--verde);
-    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    font-size: clamp(1.65rem, 4vw, 2.7rem);
     line-height: 1.2;
+    overflow-wrap: anywhere;
 }
 
 header h2 {
@@ -72,7 +77,30 @@ nav a {
     color: var(--texto);
     text-decoration: none;
     font-weight: 600;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+nav a:hover {
+    background: var(--superficie-clara);
+    border-color: var(--verde);
+    color: var(--verde);
+}
+
+nav a:active {
+    transform: scale(0.97);
+    background: var(--verde-escuro);
+    color: var(--texto);
+}
+
+nav a:focus-visible,
+button:focus-visible,
+.botao:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--verde);
+    outline-offset: 3px;
 }
 
 main {
@@ -82,7 +110,7 @@ main {
     margin: 32px auto;
 }
 
-main>section {
+main > section {
     margin-bottom: 34px;
 }
 
@@ -100,6 +128,7 @@ h3 {
 
 p {
     margin-top: 0;
+    overflow-wrap: anywhere;
 }
 
 footer {
@@ -115,9 +144,10 @@ footer nav a {
 
 form {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 24px;
     width: 100%;
+    min-width: 0;
     align-items: start;
 }
 
@@ -138,6 +168,7 @@ form fieldset {
 }
 
 legend {
+    max-width: 100%;
     padding: 0 9px;
     color: var(--verde);
     font-weight: 700;
@@ -156,6 +187,7 @@ select,
 textarea {
     width: 100%;
     min-width: 0;
+    max-width: 100%;
     padding: 11px 12px;
     border: 1px solid #3b5147;
     border-radius: 8px;
@@ -182,7 +214,8 @@ textarea::placeholder {
     color: #81958a;
 }
 
-button {
+button,
+.botao {
     display: inline-block;
     max-width: 100%;
     margin: 5px;
@@ -193,18 +226,34 @@ button {
     color: #07130d;
     font: inherit;
     font-weight: 700;
+    text-align: center;
+    text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s, filter 0.2s;
 }
 
-button+button {
-    margin-left: 7px;
+button:hover,
+.botao:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
 }
 
-button[type="button"] {
+button:active,
+.botao:active {
+    transform: translateY(1px) scale(0.98);
+    filter: brightness(0.92);
+}
+
+button[type="button"],
+.botao-secundario {
     background: var(--superficie-clara);
     color: var(--texto);
     border-color: var(--borda);
+}
+
+.botao-secundario:hover {
+    border-color: var(--verde);
+    color: var(--verde);
 }
 
 #login {
@@ -238,15 +287,65 @@ button[type="button"] {
     margin-bottom: 0;
 }
 
-#jogadores article {
-    margin: 0;
+.cartao-jogador {
     min-width: 0;
+    margin: 0;
+    padding: 22px;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    background: var(--superficie);
 }
 
-form input:not([type="checkbox"]):not([type="radio"]),
-form select,
-form textarea {
-    width: 100%;
+.cartao-jogador p:last-of-type {
+    margin-bottom: 12px;
+}
+
+.acoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.acoes button,
+.acoes .botao {
+    margin: 0;
+}
+
+.detalhes-jogadores {
+    display: grid;
+    gap: 14px;
+}
+
+.detalhes-jogadores h2 {
+    margin-bottom: 0;
+}
+
+details {
+    min-width: 0;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    background: var(--superficie);
+}
+
+details summary {
+    padding: 14px 18px;
+    color: var(--verde);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+details summary:hover {
+    background: var(--superficie-clara);
+}
+
+.conteudo-detalhes {
+    padding: 4px 18px 16px;
+    border-top: 1px solid var(--borda);
+}
+
+.conteudo-detalhes p:last-child {
+    margin-bottom: 0;
 }
 
 .disponibilidade {
@@ -254,46 +353,229 @@ form textarea {
     justify-content: stretch;
 }
 
-@media (max-width: 559px) {
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--texto);
+}
 
-    main:has(> form),
-    main:has(> #login) {
-        width: calc(100% - 16px);
-        margin: 16px auto 24px;
+th,
+td {
+    padding: 10px;
+    border: 1px solid var(--borda);
+    text-align: left;
+}
+
+th {
+    background: var(--superficie-clara);
+    color: var(--verde);
+}
+
+.tabela-responsiva {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.pagina-perfil > fieldset {
+    margin-bottom: 22px;
+}
+
+.dados-perfil {
+    margin-bottom: 16px;
+}
+
+.dados-perfil p {
+    margin-bottom: 8px;
+}
+
+.dados-perfil strong {
+    color: var(--texto);
+}
+
+.area-edicao {
+    margin-top: 12px;
+    background: #0e1713;
+}
+
+.area-edicao summary {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 16px;
+    border: 1px solid var(--verde-escuro);
+    border-radius: 8px;
+    background: var(--superficie-clara);
+    color: var(--verde);
+    list-style-position: inside;
+}
+
+.form-edicao {
+    padding: 18px;
+    border-top: 1px solid var(--borda);
+}
+
+.form-edicao p {
+    margin-bottom: 14px;
+}
+
+.botao-acao,
+.botao-editar {
+    background: #20382d;
+    color: #8ce8b8;
+    border-color: #347b58;
+}
+
+.botao-salvar {
+    background: var(--verde);
+    color: #07130d;
+    border-color: var(--verde);
+}
+
+.botao-cancelar {
+    background: #29332e;
+    color: var(--texto);
+    border-color: #53635a;
+}
+
+.botao-excluir {
+    background: #4a2022;
+    color: #ffdada;
+    border-color: var(--vermelho);
+}
+
+.botao-excluir:hover {
+    background: #702b30;
+    border-color: #ff8585;
+}
+
+.opcoes-checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    margin-bottom: 18px;
+}
+
+.opcoes-checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.grade-horarios {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.grade-horarios p {
+    min-width: 0;
+}
+
+.zona-perigo {
+    border-color: #71383b;
+}
+
+.zona-perigo legend {
+    color: #ff8585;
+}
+
+.zona-perigo p {
+    color: #e7b9b9;
+}
+
+@media (max-width: 700px) {
+    #jogadores {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .grade-horarios {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 559px) {
+    header.cabecalho {
+        padding: 30px 14px 22px;
+    }
+
+    nav {
+        gap: 6px;
+    }
+
+    nav a {
+        padding: 8px 10px;
+        font-size: 0.92rem;
+    }
+
+    main {
+        width: 100%;
+        margin: 20px auto;
+        padding: 0 12px;
     }
 
     main form {
         gap: 14px;
     }
 
-    main form>fieldset {
-        padding: 12px;
+    main form > fieldset,
+    fieldset {
+        padding: 14px 12px;
     }
 
     #login fieldset {
         padding: 14px 12px;
     }
-}
 
-@media (min-width: 192px) and (max-width: 300px) {
-
-    main:has(> form),
-    main:has(> #login) {
-        width: calc(100% - 8px);
+    #jogadores {
+        gap: 14px;
     }
 
-    main form>fieldset {
+    .cartao-jogador {
+        padding: 16px;
+    }
+
+    button,
+    .botao {
+        padding: 10px 12px;
+        font-size: 0.94rem;
+    }
+
+    th,
+    td {
         padding: 8px 6px;
+        font-size: 0.9rem;
     }
 }
 
-body {
-    min-width: 460px;
-}
+@media (max-width: 360px) {
+    body {
+        font-size: 15px;
+    }
 
-main {
-    width: 100%;
-    max-width: 1600px;
-    margin: 32px auto;
-    padding: 0 16px;
+    header.cabecalho {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    main {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    nav a {
+        padding: 7px 8px;
+        font-size: 0.85rem;
+    }
+
+    fieldset {
+        padding: 12px 9px;
+    }
+
+    .acoes {
+        align-items: stretch;
+    }
+
+    .acoes button,
+    .acoes .botao {
+        flex: 1 1 100%;
+    }
 }
