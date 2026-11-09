@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -6,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyGames | Cadastro</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/script.js" defer></script>
 </head>
 
 <body data-page="cadastro">
@@ -14,46 +16,76 @@
         <h1>Faça parte da comunidade.</h1>
         <h2>Página de Cadastro</h2>
         <p>Crie seu jogador e encontre pessoas para jogar com você.</p>
-        <nav><a href="index.html">Página inicial</a><a class="ativo" href="cadastro.html">Criar conta</a><a
-                href="login.html">Login</a><a href="perfil.html">Minha conta</a></nav>
+        <nav>
+            <a href="index.html">Página inicial</a>
+            <a class="ativo" href="cadastro.html">Criar conta</a>
+            <a href="login.html">Login</a>
+            <a href="perfil.html">Minha conta</a>
+        </nav>
     </header>
+
     <main class="largura-formulario">
         <form id="form-cadastro" novalidate>
             <fieldset>
                 <legend>Informações da conta</legend>
                 <div class="form-grid">
-                    <div><label for="nome">Nome de jogador *</label><input id="nome" name="nome" type="text"
-                            minlength="2" maxlength="40" required placeholder="Como quer ser chamado?"></div>
-                    <div><label for="email">E-mail *</label><input id="email" name="email" type="email" required
-                            placeholder="voce@email.com"></div>
-                    <div><label for="senha">Senha *</label><input id="senha" name="senha" type="password" minlength="6"
-                            required placeholder="Mínimo de 6 caracteres"></div>
-                    <div><label for="discord">Usuário do Discord</label><input id="discord" name="discord" type="text"
-                            maxlength="40" placeholder="Ex: jogador"></div>
+                    <div>
+                        <label for="nome">Nome de jogador *</label>
+                        <input id="nome" name="nome" type="text" minlength="2" maxlength="40" required
+                            placeholder="Como quer ser chamado?">
+                    </div>
+                    <div>
+                        <label for="email">E-mail *</label>
+                        <input id="email" name="email" type="email" required placeholder="voce@email.com">
+                    </div>
+                    <div>
+                        <label for="senha">Senha *</label>
+                        <input id="senha" name="senha" type="password" minlength="6" required
+                            placeholder="Mínimo de 6 caracteres">
+                    </div>
+                    <div>
+                        <label for="discord">Usuário do Discord</label>
+                        <input id="discord" name="discord" type="text" maxlength="40" placeholder="Ex: jogador">
+                    </div>
                 </div>
             </fieldset>
+
             <fieldset>
                 <legend>Seus jogos</legend>
-                <p class="texto-ajuda">Pesquise um jogo na API pública e adicione o resultado ao seu perfil. Você também
-                    pode cadastrar jogos manualmente.</p>
+                <p class="texto-ajuda">
+                    Pesquise jogos no catálogo público da CheapShark ou adicione seus jogos manualmente.
+                </p>
+
                 <div class="busca-api">
-                    <label for="busca-jogo-api">Pesquisar jogo na FreeToGame API</label>
-                    <div class="linha-busca"><input id="busca-jogo-api" type="search"
-                            placeholder="Ex: Valorant, Fortnite, Genshin Impact"><button type="button"
-                            id="buscar-jogo">Buscar jogo</button></div>
-                    <p id="status-api" class="mensagem-api" aria-live="polite">A busca utiliza o catálogo público
-                        FreeToGame.</p>
+                    <label for="busca-jogo-api">Pesquisar jogo</label>
+                    <div class="linha-busca">
+                        <input id="busca-jogo-api" type="search"
+                            placeholder="Ex: The Witcher 3, GTA V, Batman">
+                        <button type="button" id="buscar-jogo">Buscar jogo</button>
+                    </div>
+
+                    <p id="status-api" class="mensagem-api" aria-live="polite">
+                        Digite o nome de um jogo para pesquisar.
+                    </p>
+
                     <div id="resultados-api" class="resultados-api"></div>
                 </div>
+
                 <div class="linha-busca campo-manual">
-                    <div class="controle-largo"><label for="jogo-manual">Adicionar outro jogo manualmente</label><input
-                            id="jogo-manual" type="text" placeholder="Nome do jogo"></div><button type="button"
-                        class="botao-secundario" id="adicionar-jogo-manual">Adicionar</button>
+                    <div class="controle-largo">
+                        <label for="jogo-manual">Adicionar outro jogo manualmente</label>
+                        <input id="jogo-manual" type="text" placeholder="Nome do jogo">
+                    </div>
+                    <button type="button" class="botao-secundario" id="adicionar-jogo-manual">
+                        Adicionar
+                    </button>
                 </div>
+
                 <div id="jogos-selecionados" class="jogos-selecionados">
                     <p class="texto-ajuda">Nenhum jogo adicionado ainda.</p>
                 </div>
             </fieldset>
+
             <fieldset>
                 <legend>Plataformas</legend>
                 <p class="texto-ajuda">Selecione todas as plataformas em que você joga.</p>
@@ -64,6 +96,7 @@
                     <label><input type="checkbox" name="plataforma" value="Nintendo Switch"> Nintendo Switch</label>
                 </div>
             </fieldset>
+
             <fieldset>
                 <legend>Disponibilidade para jogar</legend>
                 <p class="texto-ajuda">Marque os dias e informe seus horários disponíveis.</p>
@@ -81,22 +114,27 @@
                     </table>
                 </div>
             </fieldset>
+
             <fieldset>
                 <legend>Sobre você</legend>
                 <label for="sobre">Conte um pouco sobre seu estilo de jogo</label>
                 <textarea id="sobre" name="sobre" rows="4" maxlength="300"
                     placeholder="Ex: Gosto de jogar competitivo, conhecer pessoas e completar missões em equipe."></textarea>
-                <div class="linha-final"><button type="submit">Criar minha conta</button><a class="link-destaque"
-                        href="login.html">Já tenho uma conta</a></div>
+
+                <div class="linha-final">
+                    <button type="submit">Criar minha conta</button>
+                    <a class="link-destaque" href="login.html">Já tenho uma conta</a>
+                </div>
+
                 <p id="mensagem-cadastro" class="mensagem" role="status"></p>
             </fieldset>
         </form>
     </main>
+
     <footer>
         <nav><a href="index.html">Voltar à página inicial</a></nav>
         <p>MyGames · Sua próxima partida começa aqui.</p>
     </footer>
-    <script src="assets/js/script.js"></script>
 </body>
 
 </html>
