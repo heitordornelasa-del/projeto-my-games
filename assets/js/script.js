@@ -83,3 +83,104 @@ function atualizarTopo() {
             : `Você ainda não entrou · <a class="link-destaque" href="login.html">Fazer login</a>`;
     }
 }
+function renderizarJogadores() {
+    const container = document.getElementById("jogadores");
+    if (!container) return;
+
+    const pesquisa = (document.getElementById("pesquisa")?.value || "").trim().toLocaleLowerCase("pt-BR");
+    const plataforma = document.getElementById("plataforma")?.value || "";
+    const jogo = document.getElementById("jogo")?.value || "";
+    const ordenacao = document.getElementById("ordenacao")?.value || "nome-asc";
+    const usuario = jogadorLogado();
+
+    let lista = jogadores.filter(jogador => jogador.publico !== false);
+    if (pesquisa) {
+        lista = lista.filter(jogador => [jogador.nome, jogador.discord, ...(jogador.jogos || []), ...(jogador.plataformas || [])].join(" ").toLocaleLowerCase("pt-BR").includes(pesquisa));
+    }
+    if (plataforma) lista = lista.filter(jogador => (jogador.plataformas || []).includes(plataforma));
+    if (jogo) lista = lista.filter(jogador => (jogador.jogos || []).some(item => item.toLocaleLowerCase("pt-BR") === jogo.toLocaleLowerCase("pt-BR")));
+
+    lista.sort((a, b) => {
+        if (ordenacao === "nome-desc") return b.nome.localeCompare(a.nome, "pt-BR");
+        if (ordenacao === "jogo-asc") return (a.jogos?.[0] || "").localeCompare(b.jogos?.[0] || "", "pt-BR");
+        if (ordenacao === "plataforma-asc") return (a.plataformas?.[0] || "").localeCompare(b.plataformas?.[0] || "", "pt-BR");
+        if (ordenacao === "recentes") return (b.criadoEm || 0) - (a.criadoEm || 0);
+        return a.nome.localeCompare(b.nome, "pt-BR");
+    });
+
+    container.innerHTML = lista.map(jogador => {
+        const proprio = usuario && usuario.id === jogador.id;
+        const jogos = (jogador.jogos || []).map(item => `<span>${escaparHTML(item)}</span>`).join("");
+        return `<article class="cartao-jogador">
+            <div class="cartao-topo"><div><h3>${escaparHTML(jogador.nome)}</h3><span class="etiqueta">${escaparHTML((jogador.plataformas || []).join(", ") || "Plataforma não informada")}</span></div>${proprio ? '<span class="etiqueta etiqueta-proprio">Você</span>' : ""}</div>
+            <p><strong>Jogos:</strong></p><div class="jogos-tags">${jogos || "<span>Não informado</span>"}</div>
+            <p><strong>Disponibilidade:</strong> ${escaparHTML(formatarDisponibilidade(jogador.disponibilidade))}</p>
+            <p><strong>Discord:</strong> ${escaparHTML(jogador.discord || "Não informado")}</p>
+            <div class="acoes"><button type="button" class="botao-detalhes" data-id="${escaparHTML(jogador.id)}">Ver detalhes</button>${jogador.discord ? `<a class="botao botao-secundario" href="https://discord.com/" target="_blank" rel="noopener noreferrer">Abrir Discord</a>` : ""}${proprio ? '<a class="botao botao-secundario" href="perfil.html">Editar meu perfil</a>' : ""}</div>
+            <div class="detalhe-inline" id="detalhe-${escaparHTML(jogador.id)}" hidden></div>
+        </article>`;
+    }).join("");
+
+    const vazio = document.getElementById("estado-vazio");
+    if (vazio) vazio.hidden = lista.length > 0;
+    const contagem = document.getElementById("resultado-contagem");
+    if (contagem) contagem.textContent = `${lista.length} ${lista.length === 1 ? "jogador encontrado" : "jogadores encontrados"}.`;
+
+    container.querySelectorAll(".botao-detalhes").forEach(botao => {
+        botao.addEventListener("click", () => alternarDetalhes(botao.dataset.id));
+    });
+    atualizarEstatisticas(lista);
+}
+
+function alternarDetalhes(id) {
+    const jogador = jogadores.find(item => item.id === id);
+    const painel = document.getElementById(`detalhe-${id}`);
+    if (!jogador || !painel) return;
+    const aberto = !painel.hidden;
+    document.querySelectorAll(".detalhe-inline").forEach(item => item.hidden = true);
+    if (aberto) return;
+    painel.innerHTML = `<div class="conteudo-detalhes">
+        <p><strong>Nome:</strong> ${escaparHTML(jogador.nome)}</p>
+        <p><strong>E-mail:</strong> ${escaparHTML(jogador.email)}</p>
+        <p><strong>Jogos:</strong> ${escaparHTML((jogador.jogos || []).join(", ") || "Não informado")}</p>
+        <p><strong>Plataformas:</strong> ${escaparHTML((jogador.plataformas || []).join(", ") || "Não informado")}</p>
+        <p><strong>Disponibilidade:</strong> ${escaparHTML(formatarDisponibilidade(jogador.disponibilidade))}</p>
+        <p><strong>Sobre:</strong> ${escaparHTML(jogador.sobre || "Este jogador ainda não adicionou uma descrição.")}</p>
+    </div>`;
+    painel.hidden = false;
+}
+
+function atualizarEstatisticas(lista = jogadores) {
+    const totalJogadores = document.getElementById("total-jogadores");
+    const totalJogos = document.getElementById("total-jogos");
+    const totalPlataformas = document.getElementById("total-plataformas");
+    if (totalJogadores) totalJogadores.textContent = lista.length;
+    if (totalJogos) totalJogos.textContent = new Set(lista.flatMap(jogador => jogador.jogos || [])).size;
+    if (totalPlataformas) totalPlataformas.textContent = new Set(lista.flatMap(jogador => jogador.plataformas || [])).size;
+}
+
+function atualizarOpcoesJogos() {
+    const select = document.getElementById("jogo");
+    if (!select) return;
+    const selecionado = select.value;
+    const jogos = [...new Set(jogadores.flatMap(jogador => jogador.jogos || []))].sort((a, b) => a.localeCompare(b, "pt-BR"));
+    select.innerHTML = '<option value="">Todos</option>' + jogos.map(item => `<option value="${escaparHTML(item)}">${escaparHTML(item)}</option>`).join("");
+    if (jogos.includes(selecionado)) select.value = selecionado;
+}
+
+function iniciarInicio() {
+    const pesquisa = document.getElementById("pesquisa");
+    const plataforma = document.getElementById("plataforma");
+    const jogo = document.getElementById("jogo");
+    const ordenacao = document.getElementById("ordenacao");
+    [pesquisa, plataforma, jogo, ordenacao].forEach(elemento => elemento?.addEventListener(elemento === pesquisa ? "input" : "change", renderizarJogadores));
+    document.getElementById("limpar-filtros")?.addEventListener("click", () => {
+        pesquisa.value = "";
+        plataforma.value = "";
+        jogo.value = "";
+        ordenacao.value = "nome-asc";
+        renderizarJogadores();
+    });
+    atualizarOpcoesJogos();
+    renderizarJogadores();
+}
