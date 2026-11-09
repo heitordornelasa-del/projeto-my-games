@@ -335,3 +335,39 @@ function iniciarCadastro() {
         setTimeout(() => window.location.href = "perfil.html", 900);
     });
 }
+function iniciarLogin() {
+    const formulario = document.getElementById("form-login");
+    if (!formulario) return;
+    formulario.addEventListener("submit", evento => {
+        evento.preventDefault();
+        const email = document.getElementById("email-login").value.trim().toLowerCase();
+        const senha = document.getElementById("senha-login").value;
+        const usuario = jogadores.find(jogador => jogador.email.toLowerCase() === email && jogador.senha === senha);
+        const mensagem = document.getElementById("mensagem-login");
+        if (!usuario) {
+            mostrarMensagem(mensagem, "E-mail ou senha incorretos. Confira os dados e tente novamente.", "erro");
+            return;
+        }
+        localStorage.setItem(CHAVE_SESSAO, usuario.id);
+        mostrarMensagem(mensagem, `Bem-vindo de volta, ${usuario.nome}!`, "sucesso");
+        setTimeout(() => window.location.href = "perfil.html", 600);
+    });
+}
+
+function preencherPerfil(usuario) {
+    document.getElementById("conteudo-perfil").hidden = false;
+    document.getElementById("perfil-sem-login").hidden = true;
+    document.getElementById("avatar-perfil").textContent = usuario.nome.charAt(0).toUpperCase();
+    document.getElementById("perfil-nome-cabecalho").textContent = usuario.nome;
+    document.getElementById("perfil-discord-cabecalho").textContent = usuario.discord ? `Discord: ${usuario.discord}` : "Adicione seu Discord para encontrar amigos.";
+    document.getElementById("editar-nome").value = usuario.nome;
+    document.getElementById("editar-email").value = usuario.email;
+    document.getElementById("editar-senha").value = "";
+    document.getElementById("editar-discord").value = usuario.discord || "";
+    document.getElementById("editar-sobre").value = usuario.sobre || "";
+    document.getElementById("editar-jogos").value = (usuario.jogos || []).join(", ");
+    document.getElementById("editar-plataformas").value = (usuario.plataformas || []).join(", ");
+    criarLinhasHorario(document.getElementById("perfil-horarios"), usuario.disponibilidade || {});
+    document.getElementById("texto-privacidade").textContent = usuario.publico ? "Seu perfil está público e pode aparecer nas pesquisas da página inicial." : "Seu perfil está privado e não aparece na listagem pública.";
+    document.getElementById("status-visibilidade").textContent = usuario.publico ? "Perfil público" : "Perfil privado";
+}
