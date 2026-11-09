@@ -184,3 +184,94 @@ function iniciarInicio() {
     atualizarOpcoesJogos();
     renderizarJogadores();
 }
+function criarLinhasHorario(container, disponibilidade = {}) {
+    if (!container) return;
+    container.innerHTML = DIAS.map(dia => {
+        const horario = disponibilidade[dia] || "";
+        const ativo = Boolean(horario);
+        const partes = horario.split(" - ");
+        const inicio = partes[0] || "18:00";
+        const fim = partes[1] || "22:00";
+        return `<tr><td>${dia}</td><td><input type="checkbox" id="${container.id}-${DIAS.indexOf(dia)}-ativo" data-dia="${dia}" ${ativo ? "checked" : ""} aria-label="Disponível ${dia}"></td><td><select data-dia-inicio="${dia}" aria-label="Início ${dia}">${HORARIOS.filter(h => h !== "00:00").map(h => `<option ${h === inicio ? "selected" : ""}>${h}</option>`).join("")}</select></td><td><select data-dia-fim="${dia}" aria-label="Fim ${dia}">${HORARIOS.map(h => `<option ${h === fim ? "selected" : ""}>${h}</option>`).join("")}</select></td></tr>`;
+    }).join("");
+}
+
+function lerLinhasHorario(container) {
+    const disponibilidade = {};
+    if (!container) return disponibilidade;
+    container.querySelectorAll('input[type="checkbox"][data-dia]').forEach(checkbox => {
+        if (checkbox.checked) {
+            const dia = checkbox.dataset.dia;
+            const inicio = container.querySelector(`[data-dia-inicio="${dia}"]`).value;
+            const fim = container.querySelector(`[data-dia-fim="${dia}"]`).value;
+            disponibilidade[dia] = `${inicio} - ${fim}`;
+        }
+    });
+    return disponibilidade;
+}
+
+let jogosTemporarios = [];
+
+function renderizarJogosTemporarios() {
+    const area = document.getElementById("jogos-selecionados");
+    if (!area) return;
+    if (!jogosTemporarios.length) {
+        area.innerHTML = '<p class="texto-ajuda">Nenhum jogo adicionado ainda.</p>';
+        return;
+    }
+    area.innerHTML = jogosTemporarios.map((jogo, indice) => `<span class="jogo-selecionado">${escaparHTML(jogo.nome)}${jogo.plataforma ? ` · ${escaparHTML(jogo.plataforma)}` : ""}<button type="button" data-remover-jogo="${indice}" aria-label="Remover ${escaparHTML(jogo.nome)}">×</button></span>`).join("");
+    area.querySelectorAll("[data-remover-jogo]").forEach(botao => botao.addEventListener("click", () => {
+        jogosTemporarios.splice(Number(botao.dataset.removerJogo), 1);
+        renderizarJogosTemporarios();
+    }));
+}
+
+function adicionarJogo(nome, imagem = "", plataforma = "") {
+    const limpo = nome.trim();
+    if (!limpo) return;
+    if (jogosTemporarios.some(jogo => jogo.nome.toLocaleLowerCase("pt-BR") === limpo.toLocaleLowerCase("pt-BR"))) {
+        document.getElementById("status-api").textContent = "Esse jogo já foi adicionado.";
+        return;
+    }
+    jogosTemporarios.push({ nome: limpo, imagem, plataforma });
+    renderizarJogosTemporarios();
+}
+
+async function buscarJogosAPI() {
+    const campo = document.getElementById("busca-jogo-api");
+    const status = document.getElementById("status-api");
+    const resultados = document.getElementById("resultados-api");
+    const botao = document.getElementById("buscar-jogo");
+    const termo = campo.value.trim();
+    if (!termo) {
+        status.textContent = "Digite o nome de um jogo para pesquisar.";
+        return;
+    }
+    botao.disabled = true;
+    status.textContent = "Consultando o catálogo público...";
+    resultados.innerHTML = "";
+    try {
+        const resposta = await fetch(`https://www.freetogame.com/api/games?title=${encodeURIComponent(termo)}`);
+        if (!resposta.ok) throw new Error("A API não respondeu corretamente.");
+        const dados = await resposta.json();
+        if (!Array.isArray(dados) || !dados.length) {
+            status.textContent = "Nenhum resultado encontrado. Você pode adicionar o jogo manualmente.";
+            return;
+        }
+        status.textContent = `${dados.length} resultado(s) encontrado(s). Escolha um para adicionar ao perfil.`;
+        resultados.innerHTML = dados.slice(0, 6).map((jogo, indice) => `<article class="resultado-api"><img src="${escaparHTML(jogo.thumbnail || "")}" alt="Capa de ${escaparHTML(jogo.title)}" loading="lazy"><div><strong>${escaparHTML(jogo.title)}</strong><small>${escaparHTML(jogo.platform || "Plataforma não informada")} · ${escaparHTML(jogo.genre || "Gênero não informado")}</small></div><button type="button" data-api-indice="${indice}">Adicionar</button></article>`).join("");
+        resultados.querySelectorAll("[data-api-indice]").forEach(botaoResultado => {
+            botaoResultado.addEventListener("click", () => {
+                const item = dados[Number(botaoResultado.dataset.apiIndice)];
+                adicionarJogo(item.title, item.thumbnail || "", item.platform || "");
+                status.textContent = `${item.title} adicionado ao seu cadastro.`;
+                botaoResultado.disabled = true;
+                botaoResultado.textContent = "Adicionado";
+            });
+        });
+    } catch (erro) {
+        status.textContent = "Não foi possível acessar a API agora. Verifique sua conexão ou adicione o jogo manualmente.";
+    } finally {
+        botao.disabled = false;
+    }
+}
