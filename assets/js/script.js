@@ -371,3 +371,92 @@ function preencherPerfil(usuario) {
     document.getElementById("texto-privacidade").textContent = usuario.publico ? "Seu perfil está público e pode aparecer nas pesquisas da página inicial." : "Seu perfil está privado e não aparece na listagem pública.";
     document.getElementById("status-visibilidade").textContent = usuario.publico ? "Perfil público" : "Perfil privado";
 }
+function iniciarPerfil() {
+    const areaVazia = document.getElementById("perfil-sem-login");
+    if (!areaVazia) return;
+    let usuario = jogadorLogado();
+    if (!usuario) {
+        areaVazia.hidden = false;
+        document.getElementById("conteudo-perfil").hidden = true;
+        return;
+    }
+    preencherPerfil(usuario);
+
+    document.getElementById("form-editar-perfil").addEventListener("submit", evento => {
+        evento.preventDefault();
+        const nome = document.getElementById("editar-nome").value.trim();
+        const email = document.getElementById("editar-email").value.trim().toLowerCase();
+        const senha = document.getElementById("editar-senha").value;
+        const mensagem = document.getElementById("mensagem-perfil");
+        if (nome.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || (senha && senha.length < 6)) {
+            mostrarMensagem(mensagem, "Verifique nome, e-mail e senha. A nova senha deve ter pelo menos 6 caracteres.", "erro");
+            return;
+        }
+        if (jogadores.some(item => item.id !== usuario.id && item.email.toLowerCase() === email)) {
+            mostrarMensagem(mensagem, "Esse e-mail já está sendo utilizado por outra conta.", "erro");
+            return;
+        }
+        usuario.nome = nome;
+        usuario.email = email;
+        usuario.discord = document.getElementById("editar-discord").value.trim();
+        usuario.sobre = document.getElementById("editar-sobre").value.trim();
+        if (senha) usuario.senha = senha;
+        salvarJogadores();
+        preencherPerfil(usuario);
+        atualizarTopo();
+        mostrarMensagem(mensagem, "Informações atualizadas com sucesso.", "sucesso");
+    });
+
+    document.getElementById("form-editar-jogos").addEventListener("submit", evento => {
+        evento.preventDefault();
+        const jogos = normalizarLista(document.getElementById("editar-jogos").value);
+        const plataformas = normalizarLista(document.getElementById("editar-plataformas").value);
+        const mensagem = document.getElementById("mensagem-jogos");
+        if (!jogos.length || !plataformas.length) {
+            mostrarMensagem(mensagem, "Informe pelo menos um jogo e uma plataforma.", "erro");
+            return;
+        }
+        usuario.jogos = jogos;
+        usuario.plataformas = plataformas;
+        salvarJogadores();
+        atualizarOpcoesJogos();
+        mostrarMensagem(mensagem, "Jogos e plataformas atualizados.", "sucesso");
+    });
+
+    document.getElementById("form-editar-horarios").addEventListener("submit", evento => {
+        evento.preventDefault();
+        usuario.disponibilidade = lerLinhasHorario(document.getElementById("perfil-horarios"));
+        salvarJogadores();
+        mostrarMensagem(document.getElementById("mensagem-horarios"), "Disponibilidade atualizada.", "sucesso");
+    });
+
+    document.getElementById("alternar-privacidade").addEventListener("click", () => {
+        usuario.publico = !usuario.publico;
+        salvarJogadores();
+        preencherPerfil(usuario);
+        mostrarMensagem(document.getElementById("mensagem-perfil"), `Perfil ${usuario.publico ? "público" : "privado"} agora.`, "sucesso");
+    });
+
+    document.getElementById("excluir-conta").addEventListener("click", () => {
+        const confirmar = window.confirm("Tem certeza de que deseja excluir sua conta? Essa ação não pode ser desfeita.");
+        if (!confirmar) return;
+        jogadores = jogadores.filter(item => item.id !== usuario.id);
+        salvarJogadores();
+        localStorage.removeItem(CHAVE_SESSAO);
+        window.location.href = "index.html";
+    });
+
+    document.getElementById("sair-conta").addEventListener("click", () => {
+        localStorage.removeItem(CHAVE_SESSAO);
+        window.location.href = "index.html";
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    atualizarTopo();
+    const pagina = document.body.dataset.page;
+    if (pagina === "inicio") iniciarInicio();
+    if (pagina === "cadastro") iniciarCadastro();
+    if (pagina === "login") iniciarLogin();
+    if (pagina === "perfil") iniciarPerfil();
+});
