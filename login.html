@@ -4,58 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyGames</title>
+    <title>MyGames | Login</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body>
+<body data-page="login">
     <header class="cabecalho" id="cabecalho">
-        <h1>Faça o seu login no MyGames!</h1>
+        <div class="marca"><span class="marca-icone">M</span><span>MyGames</span></div>
+        <h1>Que bom ter você de volta!</h1>
         <h2>Página de Login</h2>
-        <p>Uma plataforma que conecta jogadores de maneira simples e ágil.</p>
-        <nav>
-            <a href="index.html">Página inicial</a>
-            <a href="cadastro.html">Página de Cadastro</a>
-            <a href="#cabecalho">Página de Login</a>
-            <a href="perfil.html">Meu Perfil</a>
-        </nav>
+        <p>Acesse sua conta e continue encontrando jogadores.</p>
+        <nav><a href="index.html">Página inicial</a><a href="cadastro.html">Criar conta</a><a class="ativo"
+                href="login.html">Login</a><a href="perfil.html">Minha conta</a></nav>
     </header>
-    <main>
-        <form id="login">
-
+    <main class="largura-formulario">
+        <form id="form-login" novalidate>
             <fieldset>
-
                 <legend>Informações para login</legend>
-
-                <p>
-                    <label for="email">Digite seu email:</label>
-                    <input type="email" id="email" name="email" required>
-                </p>
-
-                <p>
-                    <label for="senha">Digite sua senha:</label>
-                    <input type="password" id="senha" name="senha" required>
-                </p>
-
-                <p>
-                    <button type="submit">Fazer login</button>
-                </p>
-
+                <label for="email-login">E-mail</label><input type="email" id="email-login" required
+                    autocomplete="email">
+                <label for="senha-login">Senha</label><input type="password" id="senha-login" required
+                    autocomplete="current-password">
+                <button type="submit" class="botao-bloco">Entrar na minha conta</button>
+                <p id="mensagem-login" class="mensagem" role="status"></p>
+                <p class="texto-ajuda">Ainda não tem uma conta? <a class="link-destaque"
+                        href="cadastro.html">Cadastre-se gratuitamente</a>.</p>
             </fieldset>
-
         </form>
-
-
-
     </main>
-
     <footer>
-        <nav>
-            <a href="#cabecalho">Voltar ao início</a>
-        </nav>
-
-
-
+        <nav><a href="index.html">Voltar à página inicial</a></nav>
     </footer>
     <script src="assets/js/script.js"></script>
 </body>

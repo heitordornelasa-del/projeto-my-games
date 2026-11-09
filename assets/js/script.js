@@ -1,233 +1,85 @@
+const CHAVE_JOGADORES = "mygames_jogadores_v3";
+const CHAVE_SESSAO = "mygames_sessao_v3";
+const DIAS = ["Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo"];
+const HORARIOS = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "00:00"];
 
-document.addEventListener("DOMContentLoaded", function () {
+const jogadoresIniciais = [
+    { id: "seed-joao", nome: "João", email: "joao@mygames.com", senha: "123456", discord: "joao123", jogos: ["Valorant", "Minecraft"], plataformas: ["PC"], disponibilidade: { "Terça-feira": "18:00 - 22:00", "Quinta-feira": "18:00 - 22:00", "Sábado": "14:00 - 20:00" }, sobre: "Gosto de jogar competitivo e conhecer novas pessoas para fechar equipe.", publico: true, criadoEm: 1 },
+    { id: "seed-lucas", nome: "Lucas", email: "lucas@mygames.com", senha: "123456", discord: "lucas123", jogos: ["Rocket League", "Terraria"], plataformas: ["PlayStation"], disponibilidade: { "Sexta-feira": "18:00 - 22:00", "Sábado": "14:00 - 20:00", "Domingo": "16:00 - 20:00" }, sobre: "Curto jogos cooperativos, exploração e partidas casuais.", publico: true, criadoEm: 2 },
+    { id: "seed-marina", nome: "Marina", email: "marina@mygames.com", senha: "123456", discord: "marina.gg", jogos: ["The Sims 4", "Minecraft", "Stardew Valley"], plataformas: ["PC"], disponibilidade: { "Segunda-feira": "18:00 - 22:00", "Quarta-feira": "18:00 - 22:00", "Domingo": "14:00 - 18:00" }, sobre: "Jogos de simulação, construção e aventura.", publico: true, criadoEm: 3 },
+    { id: "seed-pedro", nome: "Pedro", email: "pedro@mygames.com", senha: "123456", discord: "pedraoFPS", jogos: ["Counter-Strike 2", "Valorant"], plataformas: ["PC"], disponibilidade: { "Terça-feira": "20:00 - 00:00", "Quinta-feira": "20:00 - 00:00", "Sábado": "18:00 - 22:00" }, sobre: "Foco em FPS e partidas ranqueadas.", publico: true, criadoEm: 4 },
+    { id: "seed-ana", nome: "Ana", email: "ana@mygames.com", senha: "123456", discord: "anaplay", jogos: ["Fortnite", "Overwatch 2"], plataformas: ["Xbox", "PC"], disponibilidade: { "Quarta-feira": "14:00 - 18:00", "Sexta-feira": "18:00 - 22:00", "Domingo": "18:00 - 22:00" }, sobre: "Gosto de jogos em equipe e partidas divertidas.", publico: true, criadoEm: 5 },
+    { id: "seed-gabriel", nome: "Gabriel", email: "gabriel@mygames.com", senha: "123456", discord: "gabrielcraft", jogos: ["Minecraft", "Terraria"], plataformas: ["Nintendo Switch", "PC"], disponibilidade: { "Segunda-feira": "14:00 - 18:00", "Sábado": "10:00 - 16:00" }, sobre: "Construção, sobrevivência e exploração.", publico: true, criadoEm: 6 },
+    { id: "seed-beatriz", nome: "Beatriz", email: "bia@mygames.com", senha: "123456", discord: "bia_rpg", jogos: ["Genshin Impact", "Honkai: Star Rail"], plataformas: ["PC", "PlayStation"], disponibilidade: { "Terça-feira": "18:00 - 22:00", "Sábado": "14:00 - 20:00" }, sobre: "Aventureira de RPGs e mundos fantásticos.", publico: true, criadoEm: 7 },
+    { id: "seed-ricardo", nome: "Ricardo", email: "ricardo@mygames.com", senha: "123456", discord: "ricardorace", jogos: ["Forza Horizon 5", "Rocket League"], plataformas: ["Xbox"], disponibilidade: { "Quinta-feira": "18:00 - 22:00", "Domingo": "14:00 - 20:00" }, sobre: "Corridas, carros e competição amigável.", publico: true, criadoEm: 8 },
+    { id: "seed-julia", nome: "Júlia", email: "julia@mygames.com", senha: "123456", discord: "juliagamer", jogos: ["Animal Crossing", "Mario Kart 8 Deluxe"], plataformas: ["Nintendo Switch"], disponibilidade: { "Sexta-feira": "14:00 - 18:00", "Domingo": "10:00 - 16:00" }, sobre: "Jogos leves, criatividade e diversão.", publico: true, criadoEm: 9 },
+    { id: "seed-matheus", nome: "Matheus", email: "matheus@mygames.com", senha: "123456", discord: "mathmoba", jogos: ["League of Legends", "Dota 2"], plataformas: ["PC"], disponibilidade: { "Segunda-feira": "20:00 - 00:00", "Quarta-feira": "20:00 - 00:00", "Sábado": "18:00 - 22:00" }, sobre: "MOBA, estratégia e trabalho em equipe.", publico: true, criadoEm: 10 },
+    { id: "seed-camila", nome: "Camila", email: "camila@mygames.com", senha: "123456", discord: "camilacoop", jogos: ["Overcooked! 2", "It Takes Two"], plataformas: ["PlayStation", "Xbox"], disponibilidade: { "Terça-feira": "18:00 - 22:00", "Sábado": "14:00 - 18:00" }, sobre: "Prefiro jogos cooperativos para jogar em dupla.", publico: true, criadoEm: 11 },
+    { id: "seed-felipe", nome: "Felipe", email: "felipe@mygames.com", senha: "123456", discord: "felipebattle", jogos: ["Apex Legends", "Fortnite"], plataformas: ["PC", "Xbox"], disponibilidade: { "Quarta-feira": "18:00 - 22:00", "Sexta-feira": "20:00 - 00:00" }, sobre: "Battle royale e jogos de ação.", publico: true, criadoEm: 12 }
+];
 
-    const pagina = window.location.pathname.split("/").pop();
-
-    console.log("Página atual:", pagina);
-
-});
-
-(function () {
-    function iniciarCadastro() {
-        const formulario = document.querySelector("main form");
-        const campoJogos = document.querySelector("#jogos");
-
-        if (!formulario || !campoJogos) {
-            return;
+function lerJogadores() {
+    try {
+        const dados = JSON.parse(localStorage.getItem(CHAVE_JOGADORES));
+        if (Array.isArray(dados)) {
+            const ids = new Set(dados.map(jogador => jogador.id));
+            const complementares = jogadoresIniciais.filter(jogador => !ids.has(jogador.id));
+            if (complementares.length) {
+                const atualizados = [...dados, ...complementares];
+                localStorage.setItem(CHAVE_JOGADORES, JSON.stringify(atualizados));
+                return atualizados;
+            }
+            return dados;
         }
-
-        formulario.addEventListener("submit", function (evento) {
-            evento.preventDefault();
-
-            const nome = document.querySelector("#nome").value.trim();
-            const email = document.querySelector("#email").value.trim().toLowerCase();
-            const discord = document.querySelector("#discord").value.trim();
-
-            const diasSemana = [
-                "segunda",
-                "terca",
-                "quarta",
-                "quinta",
-                "sexta",
-                "sabado",
-                "domingo"
-            ];
-
-            const disponibilidade = diasSemana
-                .filter(function (dia) {
-                    return document.querySelector("#" + dia).checked;
-                })
-                .map(function (dia) {
-                    return {
-                        dia: dia,
-                        inicio: document.querySelector("#" + dia + "-inicio").value,
-                        fim: document.querySelector("#" + dia + "-fim").value
-                    };
-                });
-
-            const jogos = campoJogos.value
-                .split(",")
-                .map(function (jogo) {
-                    return jogo.trim();
-                })
-                .filter(function (jogo) {
-                    return jogo !== "";
-                });
-
-            const plataformas = Array.from(
-                document.querySelectorAll('input[name="plataforma"]:checked')
-            ).map(function (plataforma) {
-                return plataforma.value;
-            });
-
-            let jogadores = [];
-
-            try {
-                jogadores = JSON.parse(
-                    localStorage.getItem("mygames_jogadores")
-                ) || [];
-            } catch (erro) {
-                jogadores = [];
-            }
-
-            const emailExistente = jogadores.some(function (jogador) {
-                return jogador.email === email;
-            });
-
-            if (emailExistente) {
-                alert("Já existe um cadastro com esse email.");
-                return;
-            }
-
-            const novoJogador = {
-                id: Date.now(),
-                nome: nome,
-                email: email,
-                discord: discord,
-                jogos: jogos,
-                plataformas: plataformas,
-                disponibilidade: disponibilidade
-            };
-
-            jogadores.push(novoJogador);
-
-            localStorage.setItem(
-                "mygames_jogadores",
-                JSON.stringify(jogadores)
-            );
-
-            alert("Cadastro realizado com sucesso!");
-
-            formulario.reset();
-        });
+    } catch (erro) {
+        console.error("Não foi possível recuperar os jogadores.", erro);
     }
+    localStorage.setItem(CHAVE_JOGADORES, JSON.stringify(jogadoresIniciais));
+    return [...jogadoresIniciais];
+}
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", iniciarCadastro);
-    } else {
-        iniciarCadastro();
+let jogadores = lerJogadores();
+
+function salvarJogadores() {
+    localStorage.setItem(CHAVE_JOGADORES, JSON.stringify(jogadores));
+}
+
+function obterSessao() {
+    return localStorage.getItem(CHAVE_SESSAO);
+}
+
+function jogadorLogado() {
+    const id = obterSessao();
+    return jogadores.find(jogador => jogador.id === id) || null;
+}
+
+function escaparHTML(valor = "") {
+    return String(valor).replace(/[&<>"']/g, caractere => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+    })[caractere]);
+}
+
+function mostrarMensagem(elemento, texto, tipo = "sucesso") {
+    if (!elemento) return;
+    elemento.textContent = texto;
+    elemento.className = `mensagem ${tipo}`;
+}
+
+function normalizarLista(texto) {
+    return [...new Set(texto.split(",").map(item => item.trim()).filter(Boolean))];
+}
+
+function formatarDisponibilidade(disponibilidade = {}) {
+    const entradas = Object.entries(disponibilidade).filter(([, horario]) => horario);
+    return entradas.length ? entradas.map(([dia, horario]) => `${dia}: ${horario}`).join(" · ") : "Não informou horários";
+}
+
+function atualizarTopo() {
+    const area = document.getElementById("usuario-topo");
+    const usuario = jogadorLogado();
+    if (area) {
+        area.innerHTML = usuario
+            ? `Olá, ${escaparHTML(usuario.nome)} · <a class="link-destaque" href="perfil.html">Minha conta</a>`
+            : `Você ainda não entrou · <a class="link-destaque" href="login.html">Fazer login</a>`;
     }
-})();
-
-(function () {
-    function carregarJogadores() {
-        const areaJogadores = document.querySelector("#jogadores");
-        const areaDetalhes = document.querySelector(".detalhes-jogadores");
-
-        if (!areaJogadores || !areaDetalhes) return;
-
-        let jogadores = [];
-
-        try {
-            jogadores = JSON.parse(localStorage.getItem("mygames_jogadores")) || [];
-        } catch (erro) {
-            jogadores = [];
-        }
-
-        areaJogadores.querySelectorAll(".cartao-jogador").forEach(cartao => cartao.remove());
-        areaDetalhes.querySelectorAll("details").forEach(detalhe => detalhe.remove());
-
-        if (jogadores.length === 0) {
-            const mensagem = document.createElement("p");
-            mensagem.textContent = "Ainda não existem jogadores cadastrados.";
-            areaJogadores.appendChild(mensagem);
-            return;
-        }
-
-        jogadores.forEach(function (jogador) {
-            const cartao = document.createElement("article");
-            cartao.classList.add("cartao-jogador");
-
-            const titulo = document.createElement("h3");
-            titulo.textContent = jogador.nome;
-
-            const jogos = document.createElement("p");
-            jogos.textContent = "Jogos: " + jogador.jogos.join(", ");
-
-            const plataformas = document.createElement("p");
-            plataformas.textContent = "Plataforma: " + jogador.plataformas.join(", ");
-
-            const horarios = document.createElement("p");
-
-            if (jogador.disponibilidade.length > 0) {
-                const dias = jogador.disponibilidade.map(horario => horario.dia);
-                horarios.textContent = "Horários disponíveis: " + dias.join(", ");
-            } else {
-                horarios.textContent = "Horários disponíveis: Não informado";
-            }
-
-            const discord = document.createElement("p");
-            discord.textContent = "Discord: " + (jogador.discord || "Não informado");
-
-            const acoes = document.createElement("div");
-            acoes.classList.add("acoes");
-
-            const linkDetalhes = document.createElement("a");
-            linkDetalhes.classList.add("botao");
-            linkDetalhes.href = "#detalhes-" + jogador.id;
-            linkDetalhes.textContent = "Ver detalhes";
-
-            const linkDiscord = document.createElement("a");
-            linkDiscord.classList.add("botao", "botao-secundario");
-            linkDiscord.href = "https://discord.com/";
-            linkDiscord.target = "_blank";
-            linkDiscord.rel = "noopener noreferrer";
-            linkDiscord.textContent = "Chamar no Discord";
-
-            acoes.append(linkDetalhes, linkDiscord);
-            cartao.append(titulo, jogos, plataformas, horarios, discord, acoes);
-            areaJogadores.appendChild(cartao);
-
-            const detalhes = document.createElement("details");
-            detalhes.id = "detalhes-" + jogador.id;
-
-            const resumo = document.createElement("summary");
-            resumo.textContent = "Perfil de " + jogador.nome;
-
-            const conteudo = document.createElement("div");
-            conteudo.classList.add("conteudo-detalhes");
-
-            const email = document.createElement("p");
-            email.innerHTML = "<strong>Email:</strong> ";
-            email.appendChild(document.createTextNode(jogador.email));
-
-            const jogosDetalhes = document.createElement("p");
-            jogosDetalhes.innerHTML = "<strong>Jogos:</strong> ";
-            jogosDetalhes.appendChild(document.createTextNode(jogador.jogos.join(", ")));
-
-            const plataformasDetalhes = document.createElement("p");
-            plataformasDetalhes.innerHTML = "<strong>Plataforma:</strong> ";
-            plataformasDetalhes.appendChild(document.createTextNode(jogador.plataformas.join(", ")));
-
-            const discordDetalhes = document.createElement("p");
-            discordDetalhes.innerHTML = "<strong>Discord:</strong> ";
-            discordDetalhes.appendChild(document.createTextNode(jogador.discord || "Não informado"));
-
-            const tituloDisponibilidade = document.createElement("p");
-            tituloDisponibilidade.innerHTML = "<strong>Disponibilidade:</strong>";
-
-            conteudo.append(email, jogosDetalhes, plataformasDetalhes, discordDetalhes, tituloDisponibilidade);
-
-            if (jogador.disponibilidade.length > 0) {
-                jogador.disponibilidade.forEach(function (horario) {
-                    const item = document.createElement("p");
-                    item.textContent = horario.dia + ": " + horario.inicio + " às " + horario.fim;
-                    conteudo.appendChild(item);
-                });
-            } else {
-                const item = document.createElement("p");
-                item.textContent = "Nenhum horário informado.";
-                conteudo.appendChild(item);
-            }
-
-            detalhes.append(resumo, conteudo);
-            areaDetalhes.appendChild(detalhes);
-        });
-    }
-
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", carregarJogadores);
-    } else {
-        carregarJogadores();
-    }
-})();
+}

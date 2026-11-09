@@ -4,179 +4,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyGames - Meu Perfil</title>
+    <title>MyGames | Minha conta</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body>
+<body data-page="perfil">
     <header class="cabecalho" id="cabecalho">
-        <h1>Meu perfil no MyGames</h1>
-        <h2>Página de Perfil</h2>
-        <p>Veja e edite suas informações e encontre jogadores para jogar com você.</p>
-        <nav>
-            <a href="index.html">Página inicial</a>
-            <a href="cadastro.html">Página de Cadastro</a>
-            <a href="login.html">Página de Login</a>
-            <a href="#cabecalho">Meu Perfil</a>
-        </nav>
+        <div class="marca"><span class="marca-icone">M</span><span>MyGames</span></div>
+        <h1>Seu espaço na comunidade.</h1>
+        <h2>Minha conta</h2>
+        <p>Consulte e atualize suas informações de jogador.</p>
+        <nav><a href="index.html">Página inicial</a><a href="cadastro.html">Criar conta</a><a
+                href="login.html">Login</a><a class="ativo" href="perfil.html">Minha conta</a></nav>
     </header>
     <main class="pagina-perfil">
-        <fieldset>
-            <legend>Informações do perfil</legend>
-            <div class="dados-perfil">
-                <p><strong>Nome:</strong> Heitor</p>
-                <p><strong>Email:</strong> heitor@email.com</p>
-                <p><strong>Senha:</strong> ****</p>
-                <p><strong>Discord:</strong> -</p>
-            </div>
-            <details class="area-edicao">
-                <summary class="botao-acao">Editar perfil</summary>
-                <form class="form-edicao">
-                    <p><label for="editar-nome">Nome:</label><input id="editar-nome" type="text" value="Heitor"></p>
-                    <p><label for="editar-email">Email:</label><input id="editar-email" type="email"
-                            value="heitor@email.com"></p>
-                    <p><label for="editar-senha">Nova senha:</label><input id="editar-senha" type="password"
-                            placeholder="Digite uma nova senha"></p>
-                    <p><label for="editar-discord">Discord:</label><input id="editar-discord" type="text"
-                            placeholder="Seu usuário no Discord"></p>
-                    <div class="acoes">
-                        <button type="submit" class="botao-salvar">Salvar alterações</button>
-                        <button type="reset" class="botao-cancelar">Cancelar</button>
+        <div id="perfil-sem-login" class="estado-vazio" hidden>
+            <h2>Você ainda não entrou.</h2>
+            <p>Faça login para visualizar e editar seu jogador.</p><a class="botao" href="login.html">Fazer login</a><a
+                class="botao botao-secundario" href="cadastro.html">Criar conta</a>
+        </div>
+        <div id="conteudo-perfil" hidden>
+            <section class="perfil-capa">
+                <div class="avatar" id="avatar-perfil">?</div>
+                <div><span class="sobretitulo">MEU JOGADOR</span>
+                    <h2 id="perfil-nome-cabecalho"></h2>
+                    <p id="perfil-discord-cabecalho"></p>
+                </div>
+                <span class="status-publico" id="status-visibilidade">Perfil público</span>
+            </section>
+            <form id="form-editar-perfil">
+                <fieldset>
+                    <legend>Informações da conta</legend>
+                    <div class="form-grid">
+                        <div><label for="editar-nome">Nome</label><input id="editar-nome" required minlength="2"
+                                maxlength="40"></div>
+                        <div><label for="editar-email">E-mail</label><input id="editar-email" type="email" required>
+                        </div>
+                        <div><label for="editar-senha">Nova senha</label><input id="editar-senha" type="password"
+                                minlength="6" placeholder="Deixe vazio para manter a atual"></div>
+                        <div><label for="editar-discord">Discord</label><input id="editar-discord" maxlength="40"></div>
                     </div>
-                </form>
-            </details>
-        </fieldset>
-        <fieldset>
-            <legend>Meus jogos</legend>
-            <div class="dados-perfil">
-                <p><strong>Jogos:</strong> Counter-Strike 2, Minecraft, Rocket League</p>
-                <p><strong>Plataforma:</strong> PC, PlayStation</p>
-            </div>
-            <details class="area-edicao">
-                <summary class="botao-acao">Editar jogos</summary>
-                <form class="form-edicao">
-                    <p><label for="editar-jogos">Jogos que você joga:</label><textarea id="editar-jogos"
-                            rows="4">Counter-Strike 2, Minecraft, Rocket League</textarea></p>
-                    <p>Plataformas:</p>
-                    <div class="opcoes-checkbox">
-                        <label><input type="checkbox" name="editar-plataforma" value="pc" checked> PC</label>
-                        <label><input type="checkbox" name="editar-plataforma" value="playstation" checked>
-                            PlayStation</label>
-                        <label><input type="checkbox" name="editar-plataforma" value="xbox"> Xbox</label>
-                        <label><input type="checkbox" name="editar-plataforma" value="switch"> Nintendo Switch</label>
+                    <label for="editar-sobre">Sobre você</label><textarea id="editar-sobre" rows="3"
+                        maxlength="300"></textarea>
+                    <button type="submit">Salvar informações</button>
+                    <p id="mensagem-perfil" class="mensagem" role="status"></p>
+                </fieldset>
+            </form>
+            <form id="form-editar-jogos">
+                <fieldset>
+                    <legend>Meus jogos e plataformas</legend>
+                    <div class="form-grid">
+                        <div><label for="editar-jogos">Jogos (separados por vírgula)</label><input id="editar-jogos"
+                                placeholder="Minecraft, Valorant"></div>
+                        <div><label for="editar-plataformas">Plataformas (separadas por vírgula)</label><input
+                                id="editar-plataformas" placeholder="PC, PlayStation"></div>
                     </div>
-                    <div class="acoes">
-                        <button type="submit" class="botao-salvar">Salvar alterações</button>
-                        <button type="reset" class="botao-cancelar">Cancelar</button>
+                    <p class="texto-ajuda">Os jogos adicionados pela busca da API também aparecem aqui.</p>
+                    <button type="submit">Salvar jogos e plataformas</button>
+                    <p id="mensagem-jogos" class="mensagem" role="status"></p>
+                </fieldset>
+            </form>
+            <form id="form-editar-horarios">
+                <fieldset>
+                    <legend>Disponibilidade para jogar</legend>
+                    <div class="tabela-responsiva">
+                        <table class="tabela-horarios">
+                            <thead>
+                                <tr>
+                                    <th>Dia</th>
+                                    <th>Disponível</th>
+                                    <th>Início</th>
+                                    <th>Fim</th>
+                                </tr>
+                            </thead>
+                            <tbody id="perfil-horarios"></tbody>
+                        </table>
                     </div>
-                </form>
-            </details>
-        </fieldset>
-        <fieldset>
-            <legend>Horários disponíveis para jogar</legend>
-            <div class="tabela-responsiva">
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Dia</th>
-                            <th scope="col">Horário</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Segunda-feira</td>
-                            <td>18:00 - 20:00</td>
-                        </tr>
-                        <tr>
-                            <td>Terça-feira</td>
-                            <td>Não disponível</td>
-                        </tr>
-                        <tr>
-                            <td>Quarta-feira</td>
-                            <td>18:00 - 21:00</td>
-                        </tr>
-                        <tr>
-                            <td>Quinta-feira</td>
-                            <td>Não disponível</td>
-                        </tr>
-                        <tr>
-                            <td>Sexta-feira</td>
-                            <td>22:00 - 02:00</td>
-                        </tr>
-                        <tr>
-                            <td>Sábado</td>
-                            <td>14:00 - 18:00</td>
-                        </tr>
-                        <tr>
-                            <td>Domingo</td>
-                            <td>16:00 - 20:00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <details class="area-edicao">
-                <summary class="botao-acao">Editar horários</summary>
-                <form class="form-edicao">
-                    <div class="grade-horarios">
-                        <p><label for="horario-segunda">Segunda-feira:</label><select id="horario-segunda">
-                                <option>18:00 - 20:00</option>
-                                <option>Não disponível</option>
-                                <option>14:00 - 18:00</option>
-                            </select></p>
-                        <p><label for="horario-terca">Terça-feira:</label><select id="horario-terca">
-                                <option>Não disponível</option>
-                                <option>18:00 - 20:00</option>
-                                <option>14:00 - 18:00</option>
-                            </select></p>
-                        <p><label for="horario-quarta">Quarta-feira:</label><select id="horario-quarta">
-                                <option>18:00 - 21:00</option>
-                                <option>Não disponível</option>
-                                <option>14:00 - 18:00</option>
-                            </select></p>
-                        <p><label for="horario-quinta">Quinta-feira:</label><select id="horario-quinta">
-                                <option>Não disponível</option>
-                                <option>18:00 - 20:00</option>
-                                <option>14:00 - 18:00</option>
-                            </select></p>
-                        <p><label for="horario-sexta">Sexta-feira:</label><select id="horario-sexta">
-                                <option>22:00 - 02:00</option>
-                                <option>Não disponível</option>
-                                <option>18:00 - 22:00</option>
-                            </select></p>
-                        <p><label for="horario-sabado">Sábado:</label><select id="horario-sabado">
-                                <option>14:00 - 18:00</option>
-                                <option>Não disponível</option>
-                                <option>18:00 - 22:00</option>
-                            </select></p>
-                        <p><label for="horario-domingo">Domingo:</label><select id="horario-domingo">
-                                <option>16:00 - 20:00</option>
-                                <option>Não disponível</option>
-                                <option>18:00 - 22:00</option>
-                            </select></p>
-                    </div>
-                    <div class="acoes">
-                        <button type="submit" class="botao-salvar">Salvar alterações</button>
-                        <button type="reset" class="botao-cancelar">Cancelar</button>
-                    </div>
-                </form>
-            </details>
-        </fieldset>
-        <fieldset>
-            <legend>Visibilidade do perfil</legend>
-            <p>Seu perfil está atualmente público.</p>
-            <div class="acoes">
-                <button type="button" class="botao-editar">Alterar privacidade</button>
-                <button type="button" class="botao-salvar">Salvar</button>
-            </div>
-        </fieldset>
-        <fieldset class="zona-perigo">
-            <legend>Excluir conta</legend>
-            <p>Atenção: a exclusão da conta é permanente e não pode ser desfeita.</p>
-            <button type="button" class="botao-excluir">Excluir minha conta</button>
-        </fieldset>
+                    <button type="submit">Salvar horários</button>
+                    <p id="mensagem-horarios" class="mensagem" role="status"></p>
+                </fieldset>
+            </form>
+            <fieldset>
+                <legend>Privacidade do perfil</legend>
+                <p id="texto-privacidade"></p><button type="button" class="botao-secundario"
+                    id="alternar-privacidade">Alterar visibilidade</button>
+            </fieldset>
+            <fieldset class="zona-perigo">
+                <legend>Excluir minha conta</legend>
+                <p>A exclusão remove sua conta e seus dados deste navegador. Essa ação não pode ser desfeita.</p><button
+                    type="button" class="botao-excluir" id="excluir-conta">Excluir minha conta</button>
+            </fieldset>
+            <button type="button" class="botao-secundario" id="sair-conta">Sair da conta</button>
+        </div>
     </main>
     <footer>
-        <nav><a href="#cabecalho">Voltar ao início</a></nav>
+        <nav><a href="index.html">Voltar à página inicial</a></nav>
     </footer>
     <script src="assets/js/script.js"></script>
 </body>

@@ -4,127 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyGames</title>
+    <meta name="description" content="Encontre jogadores para jogar seus games favoritos no MyGames.">
+    <title>MyGames | Página inicial</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body>
+<body data-page="inicio">
     <header class="cabecalho" id="cabecalho">
-        <h1>Bem vindo ao MyGames!</h1>
+        <div class="marca"><span class="marca-icone">M</span><span>MyGames</span></div>
+        <h1>Encontre sua próxima equipe.</h1>
         <h2>Página inicial</h2>
         <p>Uma plataforma que conecta jogadores de maneira simples e ágil.</p>
         <nav>
-            <a href="#cabecalho">Página inicial</a>
-            <a href="cadastro.html">Página de Cadastro</a>
-            <a href="login.html">Página de Login</a>
-            <a href="perfil.html">Meu Perfil</a>
+            <a class="ativo" href="index.html">Página inicial</a>
+            <a href="cadastro.html">Criar conta</a>
+            <a href="login.html">Login</a>
+            <a href="perfil.html">Minha conta</a>
         </nav>
+        <div class="usuario-topo" id="usuario-topo"></div>
     </header>
     <main>
+        <section class="introducao">
+            <div>
+                <span class="sobretitulo">COMUNIDADE GAMER</span>
+                <h2>Jogue junto. Conheça pessoas. Divirta-se.</h2>
+                <p>Descubra jogadores com os mesmos interesses, encontre horários compatíveis e monte seu próximo squad.
+                </p>
+                <a class="botao" href="cadastro.html">Cadastrar meu jogador</a>
+            </div>
+            <div class="painel-estatisticas">
+                <div><strong id="total-jogadores">0</strong><span>jogadores</span></div>
+                <div><strong id="total-jogos">0</strong><span>jogos diferentes</span></div>
+                <div><strong id="total-plataformas">0</strong><span>plataformas</span></div>
+            </div>
+        </section>
+        <section class="painel-controles">
+            <div class="titulo-secao">
+                <div><span class="sobretitulo">ENCONTRE SUA GALERA</span>
+                    <h2>Pesquisar, filtrar e ordenar jogadores</h2>
+                </div>
+                <button type="button" class="botao-secundario" id="limpar-filtros">Limpar filtros</button>
+            </div>
+            <div class="controles-grade">
+                <div class="controle-largo">
+                    <label for="pesquisa">Pesquisar jogador</label>
+                    <input id="pesquisa" type="search" placeholder="Digite um nome, jogo ou Discord">
+                </div>
+                <div>
+                    <label for="plataforma">Plataforma</label>
+                    <select id="plataforma">
+                        <option value="">Todas</option>
+                        <option>PC</option>
+                        <option>PlayStation</option>
+                        <option>Xbox</option>
+                        <option>Nintendo Switch</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="jogo">Jogo</label>
+                    <select id="jogo">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="ordenacao">Ordenar por</label>
+                    <select id="ordenacao">
+                        <option value="nome-asc">Nome (A–Z)</option>
+                        <option value="nome-desc">Nome (Z–A)</option>
+                        <option value="jogo-asc">Jogo (A–Z)</option>
+                        <option value="plataforma-asc">Plataforma (A–Z)</option>
+                        <option value="recentes">Mais recentes</option>
+                    </select>
+                </div>
+            </div>
+            <p class="resultado-contagem" id="resultado-contagem" aria-live="polite"></p>
+        </section>
         <section>
-            <h2>Pesquisar, filtrar e ordenar jogadores</h2>
-            <form>
-                <fieldset>
-                    <legend>Pesquisar jogadores</legend>
-                    <p>
-                        <label for="pesquisa">Digite o nome do jogador:</label>
-                        <input id="pesquisa" type="search">
-                    </p>
-                    <p><button type="submit">Pesquisar</button></p>
-                </fieldset>
-                <fieldset>
-                    <legend>Filtrar jogadores</legend>
-                    <p>
-                        <label for="plataforma">Plataforma:</label>
-                        <select id="plataforma">
-                            <option>Todos</option>
-                            <option>PC</option>
-                            <option>PlayStation</option>
-                            <option>Xbox</option>
-                            <option>Nintendo Switch</option>
-                        </select>
-                    </p>
-                    <p>
-                        <label for="jogo">Jogo:</label>
-                        <select id="jogo">
-                            <option>Todos</option>
-                            <option>Counter-Strike 2</option>
-                            <option>Minecraft</option>
-                            <option>Rocket League</option>
-                            <option>Valorant</option>
-                        </select>
-                    </p>
-                    <button type="button">Filtrar</button>
-                </fieldset>
-                <fieldset>
-                    <legend>Ordenar jogadores</legend>
-                    <p>
-                        <label for="ordenacao">Ordenar por:</label>
-                        <select id="ordenacao">
-                            <option>Nome</option>
-                            <option>Jogo</option>
-                            <option>Plataforma</option>
-                        </select>
-                    </p>
-                    <button type="button">Ordenar</button>
-                </fieldset>
-            </form>
-        </section>
-        <section id="jogadores">
-            <h2>Jogadores cadastrados</h2>
-            <article class="cartao-jogador">
-                <h3>João</h3>
-                <p>Jogos: Valorant, Minecraft</p>
-                <p>Plataforma: PC</p>
-                <p>Horários disponíveis: Terça, quinta e sábado</p>
-                <p>Discord: joao123</p>
-                <div class="acoes">
-                    <a class="botao" href="#detalhes-joao">Ver detalhes</a>
-                    <a class="botao botao-secundario" href="https://discord.com/" target="_blank"
-                        rel="noopener noreferrer">Chamar no Discord</a>
-                </div>
-            </article>
-            <article class="cartao-jogador">
-                <h3>Lucas</h3>
-                <p>Jogos: Rocket League, Terraria</p>
-                <p>Plataforma: PlayStation</p>
-                <p>Horários disponíveis: Sexta, sábado e domingo</p>
-                <p>Discord: lucas123</p>
-                <div class="acoes">
-                    <a class="botao" href="#detalhes-lucas">Ver detalhes</a>
-                    <a class="botao botao-secundario" href="https://discord.com/" target="_blank"
-                        rel="noopener noreferrer">Chamar no Discord</a>
-                </div>
-            </article>
-        </section>
-        <section class="detalhes-jogadores" aria-label="Detalhes dos jogadores">
-            <h2>Detalhes dos jogadores</h2>
-            <details id="detalhes-joao">
-                <summary>Perfil de João</summary>
-                <div class="conteudo-detalhes">
-                    <p><strong>Nome:</strong> João</p>
-                    <p><strong>Jogos:</strong> Valorant e Minecraft</p>
-                    <p><strong>Plataforma:</strong> PC</p>
-                    <p><strong>Disponibilidade:</strong> Terça, quinta e sábado</p>
-                    <p><strong>Discord:</strong> joao123</p>
-                    <p><strong>Sobre:</strong> Jogador disponível para partidas e novas amizades.</p>
-                </div>
-            </details>
-            <details id="detalhes-lucas">
-                <summary>Perfil de Lucas</summary>
-                <div class="conteudo-detalhes">
-                    <p><strong>Nome:</strong> Lucas</p>
-                    <p><strong>Jogos:</strong> Rocket League e Terraria</p>
-                    <p><strong>Plataforma:</strong> PlayStation</p>
-                    <p><strong>Disponibilidade:</strong> Sexta, sábado e domingo</p>
-                    <p><strong>Discord:</strong> lucas123</p>
-                    <p><strong>Sobre:</strong> Jogador disponível para partidas e novas amizades.</p>
-                </div>
-            </details>
+            <div class="titulo-secao">
+                <div><span class="sobretitulo">COMUNIDADE MYGAMES</span>
+                    <h2>Jogadores cadastrados</h2>
+                </div><a class="link-destaque" href="cadastro.html">+ Adicionar jogador</a>
+            </div>
+            <div id="jogadores" class="grade-jogadores" aria-live="polite"></div>
+            <p id="estado-vazio" class="estado-vazio" hidden>Nenhum jogador encontrado. Tente alterar os filtros.</p>
         </section>
     </main>
     <footer>
-        <nav><a href="#cabecalho">Voltar ao início</a></nav>
+        <p>MyGames · Conectando jogadores.</p>
+        <nav><a href="#cabecalho">Voltar ao início</a><a href="cadastro.html">Cadastrar</a></nav>
     </footer>
     <script src="assets/js/script.js"></script>
 </body>

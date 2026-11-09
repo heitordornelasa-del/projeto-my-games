@@ -4,361 +4,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyGames</title>
+    <title>MyGames | Cadastro</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body>
+<body data-page="cadastro">
     <header class="cabecalho" id="cabecalho">
-        <h1>Faça o seu cadastro no MyGames!</h1>
+        <div class="marca"><span class="marca-icone">M</span><span>MyGames</span></div>
+        <h1>Faça parte da comunidade.</h1>
         <h2>Página de Cadastro</h2>
-        <p>Uma plataforma que conecta jogadores de maneira simples e ágil.</p>
-        <nav>
-            <a href="index.html">Página inicial</a>
-            <a href="#cabecalho">Página de Cadastro</a>
-            <a href="login.html">Página de Login</a>
-            <a href="perfil.html">Meu Perfil</a>
-        </nav>
+        <p>Crie seu jogador e encontre pessoas para jogar com você.</p>
+        <nav><a href="index.html">Página inicial</a><a class="ativo" href="cadastro.html">Criar conta</a><a
+                href="login.html">Login</a><a href="perfil.html">Minha conta</a></nav>
     </header>
-    <main>
-        <form>
-
+    <main class="largura-formulario">
+        <form id="form-cadastro" novalidate>
             <fieldset>
-
-                <legend>Informações para cadastro</legend>
-
-                <p>
-                    <label for="nome">Digite seu nome:</label>
-                    <input id="nome" name="nome" type="text" required>
-                </p>
-
-                <p>
-                    <label for="email">Digite seu email:</label>
-                    <input id="email" name="email" type="email" required>
-                </p>
-
-                <p>
-                    <label for="senha">Digite sua senha:</label>
-                    <input id="senha" name="senha" type="password" required>
-                </p>
-
-
-                <p>
-                    <label for="discord">Usuário do Discord:</label>
-                    <input id="discord" name="discord" type="text" placeholder="Ex: usuario#1234">
-                </p>
-
-                <p>
-                    <button type="submit">Enviar cadastro</button>
-                </p>
+                <legend>Informações da conta</legend>
+                <div class="form-grid">
+                    <div><label for="nome">Nome de jogador *</label><input id="nome" name="nome" type="text"
+                            minlength="2" maxlength="40" required placeholder="Como quer ser chamado?"></div>
+                    <div><label for="email">E-mail *</label><input id="email" name="email" type="email" required
+                            placeholder="voce@email.com"></div>
+                    <div><label for="senha">Senha *</label><input id="senha" name="senha" type="password" minlength="6"
+                            required placeholder="Mínimo de 6 caracteres"></div>
+                    <div><label for="discord">Usuário do Discord</label><input id="discord" name="discord" type="text"
+                            maxlength="40" placeholder="Ex: jogador"></div>
+                </div>
             </fieldset>
-
-            <fieldset class="disponibilidade">
-
+            <fieldset>
+                <legend>Seus jogos</legend>
+                <p class="texto-ajuda">Pesquise um jogo na API pública e adicione o resultado ao seu perfil. Você também
+                    pode cadastrar jogos manualmente.</p>
+                <div class="busca-api">
+                    <label for="busca-jogo-api">Pesquisar jogo na FreeToGame API</label>
+                    <div class="linha-busca"><input id="busca-jogo-api" type="search"
+                            placeholder="Ex: Valorant, Fortnite, Genshin Impact"><button type="button"
+                            id="buscar-jogo">Buscar jogo</button></div>
+                    <p id="status-api" class="mensagem-api" aria-live="polite">A busca utiliza o catálogo público
+                        FreeToGame.</p>
+                    <div id="resultados-api" class="resultados-api"></div>
+                </div>
+                <div class="linha-busca campo-manual">
+                    <div class="controle-largo"><label for="jogo-manual">Adicionar outro jogo manualmente</label><input
+                            id="jogo-manual" type="text" placeholder="Nome do jogo"></div><button type="button"
+                        class="botao-secundario" id="adicionar-jogo-manual">Adicionar</button>
+                </div>
+                <div id="jogos-selecionados" class="jogos-selecionados">
+                    <p class="texto-ajuda">Nenhum jogo adicionado ainda.</p>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Plataformas</legend>
+                <p class="texto-ajuda">Selecione todas as plataformas em que você joga.</p>
+                <div class="opcoes-checkbox">
+                    <label><input type="checkbox" name="plataforma" value="PC"> PC</label>
+                    <label><input type="checkbox" name="plataforma" value="PlayStation"> PlayStation</label>
+                    <label><input type="checkbox" name="plataforma" value="Xbox"> Xbox</label>
+                    <label><input type="checkbox" name="plataforma" value="Nintendo Switch"> Nintendo Switch</label>
+                </div>
+            </fieldset>
+            <fieldset>
                 <legend>Disponibilidade para jogar</legend>
-
-                <table>
-
-                    <thead>
-                        <tr>
-                            <th>Dia</th>
-                            <th>Disponível</th>
-                            <th>Início</th>
-                            <th>Fim</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        <tr>
-                            <td>Segunda-feira</td>
-                            <td>
-                                <input id="segunda" name="segunda" type="checkbox">
-                                <label for="segunda">Sim</label>
-                            </td>
-                            <td>
-
-                                <label for="segunda-inicio">Início:</label>
-                                <select id="segunda-inicio" name="segunda-inicio">
-                                    <option>08:00</option>
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                </select>
-                            </td>
-                            <td>
-                                <label for="segunda-fim">Fim:</label>
-                                <select id="segunda-fim" name="segunda-fim">
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                    <option>00:00</option>
-                                </select>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Terça-feira</td>
-                            <td>
-                                <input id="terca" name="terca" type="checkbox">
-                                <label for="terca">Sim</label>
-                            </td>
-                            <td>
-                                <label for="terca-inicio">Início:</label>
-                                <select id="terca-inicio" name="terca-inicio">
-                                    <option>08:00</option>
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                </select>
-                            </td>
-                            <td>
-                                <label for="terca-fim">Fim:</label>
-                                <select id="terca-fim" name="terca-fim">
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                    <option>00:00</option>
-                                </select>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Quarta-feira</td>
-                            <td>
-                                <input id="quarta" name="quarta" type="checkbox">
-                                <label for="quarta">Sim</label>
-                            </td>
-                            <td>
-                                <label for="quarta-inicio">Início:</label>
-                                <select id="quarta-inicio" name="quarta-inicio">
-                                    <option>08:00</option>
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                </select>
-                            </td>
-                            <td>
-                                <label for="quarta-fim">Fim:</label>
-                                <select id="quarta-fim" name="quarta-fim">
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                    <option>00:00</option>
-                                </select>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Quinta-feira</td>
-                            <td>
-                                <input id="quinta" name="quinta" type="checkbox">
-                                <label for="quinta">Sim</label>
-                            </td>
-                            <td>
-                                <label for="quinta-inicio">Início:</label>
-                                <select id="quinta-inicio" name="quinta-inicio">
-                                    <option>08:00</option>
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                </select>
-                            </td>
-                            <td>
-                                <label for="quinta-fim">Fim:</label>
-                                <select id="quinta-fim" name="quinta-fim">
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                    <option>00:00</option>
-                                </select>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Sexta-feira</td>
-                            <td>
-                                <input id="sexta" name="sexta" type="checkbox">
-                                <label for="sexta">Sim</label>
-                            </td>
-                            <td>
-                                <label for="sexta-inicio">Início:</label>
-                                <select id="sexta-inicio" name="sexta-inicio">
-                                    <option>08:00</option>
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                </select>
-                            </td>
-                            <td>
-                                <label for="sexta-fim">Fim:</label>
-                                <select id="sexta-fim" name="sexta-fim">
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                    <option>00:00</option>
-                                </select>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Sábado</td>
-                            <td>
-                                <input id="sabado" name="sabado" type="checkbox">
-                                <label for="sabado">Sim</label>
-                            </td>
-                            <td>
-                                <label for="sabado-inicio">Início:</label>
-                                <select id="sabado-inicio" name="sabado-inicio">
-                                    <option>08:00</option>
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                </select>
-                            </td>
-                            <td>
-                                <label for="sabado-fim">Fim:</label>
-                                <select id="sabado-fim" name="sabado-fim">
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                    <option>00:00</option>
-                                </select>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Domingo</td>
-                            <td>
-                                <input id="domingo" name="domingo" type="checkbox">
-                                <label for="domingo">Sim</label>
-                            </td>
-                            <td>
-                                <label for="domingo-inicio">Início:</label>
-                                <select id="domingo-inicio" name="domingo-inicio">
-                                    <option>08:00</option>
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                </select>
-                            </td>
-                            <td>
-                                <label for="domingo-fim">Fim:</label>
-                                <select id="domingo-fim" name="domingo-fim">
-                                    <option>10:00</option>
-                                    <option>12:00</option>
-                                    <option>14:00</option>
-                                    <option>16:00</option>
-                                    <option>18:00</option>
-                                    <option>20:00</option>
-                                    <option>22:00</option>
-                                    <option>00:00</option>
-                                </select>
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-                <p>
-                    <button type="button">Salvar dados</button>
-                </p>
-
+                <p class="texto-ajuda">Marque os dias e informe seus horários disponíveis.</p>
+                <div class="tabela-responsiva">
+                    <table class="tabela-horarios">
+                        <thead>
+                            <tr>
+                                <th>Dia</th>
+                                <th>Disponível</th>
+                                <th>Início</th>
+                                <th>Fim</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-horarios"></tbody>
+                    </table>
+                </div>
             </fieldset>
-
             <fieldset>
-
-                <legend>Informações sobre jogos</legend>
-
-                <p>
-                    <label for="jogos">Quais jogos você joga?</label>
-                </p>
-
-
-                <textarea id="jogos" name="jogos" rows="5" cols="40"
-                    placeholder="Ex: Valorant, Minecraft, Fortnite..."></textarea>
-
-                <p>Em quais plataformas você joga?</p>
-
-                <input id="pc" type="checkbox" name="plataforma" value="pc">
-                <label for="pc">PC</label>
-
-                <input id="playstation" type="checkbox" name="plataforma" value="playstation">
-                <label for="playstation">PlayStation</label>
-
-                <input id="xbox" type="checkbox" name="plataforma" value="xbox">
-                <label for="xbox">Xbox</label>
-
-                <input id="switch" type="checkbox" name="plataforma" value="switch">
-                <label for="switch">Nintendo Switch</label>
-
-                <p>
-                    <button type="button">Salvar dados</button>
-                </p>
-
+                <legend>Sobre você</legend>
+                <label for="sobre">Conte um pouco sobre seu estilo de jogo</label>
+                <textarea id="sobre" name="sobre" rows="4" maxlength="300"
+                    placeholder="Ex: Gosto de jogar competitivo, conhecer pessoas e completar missões em equipe."></textarea>
+                <div class="linha-final"><button type="submit">Criar minha conta</button><a class="link-destaque"
+                        href="login.html">Já tenho uma conta</a></div>
+                <p id="mensagem-cadastro" class="mensagem" role="status"></p>
             </fieldset>
-
         </form>
-
     </main>
-
     <footer>
-        <nav>
-            <a href="#cabecalho">Voltar ao início</a>
-        </nav>
+        <nav><a href="index.html">Voltar à página inicial</a></nav>
+        <p>MyGames · Sua próxima partida começa aqui.</p>
     </footer>
     <script src="assets/js/script.js"></script>
 </body>
