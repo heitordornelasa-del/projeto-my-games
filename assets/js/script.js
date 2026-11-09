@@ -275,3 +275,63 @@ async function buscarJogosAPI() {
         botao.disabled = false;
     }
 }
+function iniciarCadastro() {
+    const formulario = document.getElementById("form-cadastro");
+    if (!formulario) return;
+    criarLinhasHorario(document.getElementById("corpo-horarios"));
+    document.getElementById("buscar-jogo").addEventListener("click", buscarJogosAPI);
+    document.getElementById("busca-jogo-api").addEventListener("keydown", evento => {
+        if (evento.key === "Enter") {
+            evento.preventDefault();
+            buscarJogosAPI();
+        }
+    });
+    document.getElementById("adicionar-jogo-manual").addEventListener("click", () => {
+        const campo = document.getElementById("jogo-manual");
+        if (!campo.value.trim()) return;
+        adicionarJogo(campo.value);
+        campo.value = "";
+    });
+    formulario.addEventListener("submit", evento => {
+        evento.preventDefault();
+        const nome = document.getElementById("nome").value.trim();
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const senha = document.getElementById("senha").value;
+        const plataformas = [...formulario.querySelectorAll('input[name="plataforma"]:checked')].map(input => input.value);
+        const mensagem = document.getElementById("mensagem-cadastro");
+        if (nome.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || senha.length < 6) {
+            mostrarMensagem(mensagem, "Confira os campos: nome com pelo menos 2 caracteres, e-mail válido e senha com pelo menos 6 caracteres.", "erro");
+            return;
+        }
+        if (!plataformas.length) {
+            mostrarMensagem(mensagem, "Selecione pelo menos uma plataforma.", "erro");
+            return;
+        }
+        if (!jogosTemporarios.length) {
+            mostrarMensagem(mensagem, "Adicione pelo menos um jogo ao seu perfil.", "erro");
+            return;
+        }
+        if (jogadores.some(jogador => jogador.email.toLowerCase() === email)) {
+            mostrarMensagem(mensagem, "Já existe uma conta cadastrada com esse e-mail. Faça login ou utilize outro e-mail.", "erro");
+            return;
+        }
+        const novoJogador = {
+            id: `user-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            nome, email, senha,
+            discord: document.getElementById("discord").value.trim(),
+            jogos: jogosTemporarios.map(jogo => jogo.nome),
+            jogosDetalhes: jogosTemporarios,
+            plataformas,
+            disponibilidade: lerLinhasHorario(document.getElementById("corpo-horarios")),
+            sobre: document.getElementById("sobre").value.trim(),
+            publico: true,
+            criadoEm: Date.now()
+        };
+        jogadores.push(novoJogador);
+        salvarJogadores();
+        localStorage.setItem(CHAVE_SESSAO, novoJogador.id);
+        jogosTemporarios = [];
+        mostrarMensagem(mensagem, "Cadastro realizado com sucesso! Sua conta já aparece na página inicial.", "sucesso");
+        setTimeout(() => window.location.href = "perfil.html", 900);
+    });
+}
